@@ -1,7 +1,7 @@
 package rpc_utils
 
 import (
-	archonAbi "github.com/itsmeknt/archoncloud-go/blockchainAPI/ethereum/abi"
+	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
 )
 
 var g_ethRpcUrl string = archonAbi.RpcUrl()
