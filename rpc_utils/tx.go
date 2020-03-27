@@ -22,25 +22,9 @@ func GetNonceForAddress(address [20]byte) (ret uint64, err error) {
 	blockParameter := "pending"
 	var reqString = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\": [\"" + hexAddress + "\",\"" + blockParameter + "\"],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
-	if err_req != nil {
-		return uint64(0), err_req
-	}
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{Timeout: time.Second * 10}
-	resp, err_resp := client.Do(req)
-	if resp == nil || err_resp != nil {
-		return uint64(0), err_resp
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-	type Response struct {
-		Result string `json:"result"`
-	}
-	var response Response
-	json_err := json.Unmarshal(body, &response)
-	if json_err != nil {
-		return uint64(0), json_err
+	response, err := HttpPostWResponse(reqBytes)
+	if err != nil {
+		return uint64(0), err
 	}
 	res, err_res := strconv.ParseUint(strings.Replace(response.Result, "0x", "", 1),
 		16,
@@ -53,27 +37,10 @@ func GetNonceForAddress(address [20]byte) (ret uint64, err error) {
 
 func GetBlockHeight() (ret string, err error) {
 	var reqBytes = []byte(`{"jsonrpc":"2.0","method":"eth_blockNumber","params": [],"id":1}`)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
-	if err_req != nil {
-		return "", err_req
+	response, err := HttpPostWResponse(reqBytes)
+	if err != nil {
+		return "", err
 	}
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{Timeout: time.Second * 10}
-	resp, err_resp := client.Do(req)
-	if resp == nil || err_resp != nil {
-		return "", err_resp
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-	type Response struct {
-		Result string `json:"result"`
-	}
-	var response Response
-	json_err := json.Unmarshal(body, &response)
-	if json_err != nil {
-		return "", json_err
-	}
-
 	return response.Result, nil
 }
 
@@ -151,25 +118,9 @@ func EstimateGas(from [20]byte, to [20]byte, value *big.Int, data []byte) (res *
 	hexData := hexutil.Encode(data)
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\": [{\"from\": \"" + hexFrom + "\",\"to\": \"" + hexTo + "\",\"value\": \"" + hexValue + "\",\"data\": \"" + hexData + "\"}],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
-	if err_req != nil {
-		return new(big.Int), err_req
-	}
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{Timeout: time.Second * 10}
-	resp, err_resp := client.Do(req)
-	if resp == nil || err_resp != nil {
-		return new(big.Int), err_resp
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-	type Response struct {
-		Result string `json:"result"`
-	}
-	var response Response
-	json_err := json.Unmarshal(body, &response)
-	if json_err != nil {
-		return new(big.Int), json_err
+	response, err := HttpPostWResponse(reqBytes)
+	if err != nil {
+		return new(big.Int), err
 	}
 	bRes := hexutil.MustDecode(response.Result)
 	ret := new(big.Int)
@@ -186,25 +137,9 @@ func SendRawTx(signedTx *types.Transaction) (res string, err error) {
 	hexData := hexutil.Encode(data)
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"" + hexData + "\"],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
-	if err_req != nil {
-		return "", err_req
-	}
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{Timeout: time.Second * 10}
-	resp, err_resp := client.Do(req)
-	if resp == nil || err_resp != nil {
-		return "", err_resp
-	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-	type Response struct {
-		Result string `json:"result"`
-	}
-	var response Response
-	json_err := json.Unmarshal(body, &response)
-	if json_err != nil {
-		return "", json_err
+	response, err := HttpPostWResponse(reqBytes)
+	if err != nil {
+		return "", err
 	}
 	return response.Result, nil
 }

@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
+	archonAbi "github.com/itsmeknt/archoncloud-go/blockchainAPI/ethereum/abi"
 )
 
 type LogsResponse struct {
