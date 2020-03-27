@@ -4,6 +4,7 @@ import (
 	"math/big"
 )
 
+// This is useful during tx construction
 func CheckTxCostAgainstBalance(amount, gasLimit uint64, address [20]byte) (accountHasEnough bool, balance, totalCost big.Int, err error) {
 	bBalance, err := GetBalance_byteAddressToBigInt(address)
 	if err != nil {

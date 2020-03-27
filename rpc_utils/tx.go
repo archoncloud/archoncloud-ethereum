@@ -15,6 +15,8 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 )
 
+// These functions are necessary to construct a transaction
+
 func GetNonceForAddress(address [20]byte) (ret uint64, err error) {
 	var bAddress []byte
 	bAddress = append(bAddress, address[:]...)
