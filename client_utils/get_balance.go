@@ -8,6 +8,7 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 )
 
+// called by CheckTxCostAgainstBalance
 func GetBalance(ethAddress [20]byte) (big.Int, error) {
 	var bEthAddress []byte
 	bEthAddress = make([]byte, 20)

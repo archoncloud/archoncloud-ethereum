@@ -9,6 +9,7 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 )
 
+// utility function for sp to list its earnings
 func GetEarnings(ethAddress [20]byte) (big.Int, error) {
 	var keyAndSlot [64]byte
 	for i := 0; i < 20; i++ {

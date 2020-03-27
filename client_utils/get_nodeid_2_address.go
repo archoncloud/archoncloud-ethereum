@@ -10,6 +10,8 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 )
 
+// called by routines in archon-dht since in the smart contract
+// nodeID -> address -> spProfile
 func GetNodeID2Address(nodeID [32]byte) ([20]byte, error) {
 	// format storage query
 	var keyAndSlot [64]byte
