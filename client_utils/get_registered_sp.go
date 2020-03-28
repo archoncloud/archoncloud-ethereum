@@ -13,8 +13,8 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/register"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 
+	"github.com/archoncloud/archoncloud-go/common"
 	. "github.com/archoncloud/blockchainAPI/registered_sp"
-	"github.com/itsmeknt/archoncloud-go/common"
 )
 
 // An sp participating in archon network makes available to archon clients
