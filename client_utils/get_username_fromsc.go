@@ -10,6 +10,11 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 )
 
+// An uploader needs to first have their username registered with the sc
+// before they can upload to the archon cloud.
+// A use of this is that when a downloader needs to validate their download,
+// they retrieve from the contract the publicKey associated with the username
+// that namespaces the download.
 func GetUsernameFromContract(address [20]byte) (username [32]byte, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
