@@ -4,25 +4,23 @@ import (
 	"fmt"
 	"math/big"
 
-	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types" //NewTransaction
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
-	ethparams "github.com/ethereum/go-ethereum/params"
 
 	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
 	"github.com/archoncloud/archoncloud-ethereum/encodings"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
+	"github.com/archoncloud/archoncloud-ethereum/wallet"
 )
 
 var g_chainID int64 = archonAbi.ChainID()
 
 type UploadParams struct {
-	SigningKey [32]byte
-	Address    [20]byte
+	Wallet wallet.EthereumKeyset
 
 	ServiceDuration    uint32
 	MinSLARequirements int
@@ -49,7 +47,7 @@ type UploadParams struct {
 // containerSignature, etc.
 func ProposeUpload(params *UploadParams) (txid string, err error) {
 	// construct tx
-	nonce, nonce_err := rpc_utils.GetNonceForAddress(params.Address)
+	nonce, nonce_err := rpc_utils.GetNonceForAddress(params.Wallet.Address)
 	if nonce_err != nil {
 		return "", nonce_err
 	}
@@ -128,24 +126,7 @@ func ProposeUpload(params *UploadParams) (txid string, err error) {
 		gasPrice,
 		dataFormatted)
 	// sign tx
-	point, err_point := ethcrypto.ToECDSA(params.SigningKey[:])
-	if err_point != nil {
-		return "", err_point
-	}
-	bigHeight := new(big.Int)
-	baseHeight, err_res := strconv.ParseUint(strings.Replace(height, "0x", "", 1), 16, 64)
-	if err_res != nil {
-		return "", err_res
-	}
-	bigHeight.SetUint64(baseHeight)
-	var signer types.Signer
-	if archonAbi.RpcUrl() == "http://127.0.0.1:7545" || archonAbi.ChainIs() == "Ganorge" {
-		signer = types.NewEIP155Signer(big.NewInt(g_chainID))
-	} else {
-		// gorli
-		signer = types.MakeSigner(ethparams.GoerliChainConfig, bigHeight)
-	}
-	signedTx, err_signedTx := types.SignTx(tx, signer, point)
+	signedTx, err_signedTx := params.Wallet.SignTx(tx)
 	if err_signedTx != nil {
 		return "", err_signedTx
 	}
