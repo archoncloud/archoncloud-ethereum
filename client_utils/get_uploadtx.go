@@ -77,9 +77,7 @@ func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error) {
 			bAddress = append(bAddress, []byte(r)...)
 		}
 		var bAddress2 [20]byte
-		for i := 0; i < 20; i++ {
-			bAddress2[i] = bAddress[i]
-		}
+		copy(bAddress2[0:20], bAddress[0:20])
 		username, err_username := GetUsernameFromContract(bAddress2)
 		if err_username != nil {
 			var empty [32]byte
@@ -173,7 +171,6 @@ type GetTxByHashResult struct {
 
 func checkUploadRpcCalls(txHash [32]byte) (res GetTxByHashResult, err error) {
 	// gettxbyid rpc call
-
 	var bTxHash []byte
 	bTxHash = append(bTxHash, txHash[:]...)
 	hexTxHash := hexutil.Encode(bTxHash)
@@ -220,12 +217,10 @@ func Unpack(methodName string, input []byte) (inter interface{}, err error) {
 		var hashedArchonFilepath [32]byte
 		var containerSignatureR, containerSignatureS [32]byte
 		var params [32]byte
-		for i := 0; i < 32; i++ {
-			hashedArchonFilepath[i] = input[i]
-			containerSignatureR[i] = input[i+32]
-			containerSignatureS[i] = input[i+(2*32)]
-			params[i] = input[i+(3*32)]
-		}
+		copy(hashedArchonFilepath[0:32], input[0:32])
+		copy(containerSignatureR[0:32], input[32:64])
+		copy(containerSignatureS[0:32], input[(2*32):(3*32)])
+		copy(params[0:32], input[(3*32):(4*32)])
 		var shardsize uint64
 		for i := 24; i < 32; i++ { // getting the uint64 from the byte32
 			var shift = 8 * (32 - i - 1)
@@ -236,9 +231,7 @@ func Unpack(methodName string, input []byte) (inter interface{}, err error) {
 		var idx int = 0
 		for i := (7 * 32); i < len(input); i += 32 {
 			var archonSP [20]byte
-			for j := 0; j < 20; j++ {
-				archonSP[j] = input[i+j+12]
-			}
+			copy(archonSP[0:20], input[i+12:i+12+20])
 			archonSPs = append(archonSPs, archonSP)
 			idx++
 		}
@@ -312,9 +305,7 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 		bTo = append(bTo, []byte(r)...)
 	}
 	var bbTo [20]byte
-	for i := 0; i < 20; i++ {
-		bbTo[i] = bTo[i]
-	}
+	copy(bbTo[0:20], bTo[0:20])
 	dataValue, err_dataValue := strconv.ParseUint(strings.Replace(data.Value, "0x", "", 1), 16, 64)
 	if err_dataValue != nil {
 		var empty [64]byte
@@ -359,8 +350,6 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 		return empty, fmt.Errorf("ECRecoverFromTx error: ethcrypto.Ecrecover error")
 	}
 	var bPubKey [64]byte
-	for i := 0; i < 64; i++ {
-		bPubKey[i] = pubKey[i+1]
-	}
+	copy(bPubKey[0:64], pubKey[1:65])
 	return bPubKey, nil
 }
