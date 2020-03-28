@@ -51,9 +51,7 @@ func BCAddressToEthAddress(address common.BCAddress) [20]byte {
 		bAddress = append(bAddress, []byte(r)...)
 	}
 	var b20Address [20]byte
-	for i := 0; i < 20; i++ {
-		b20Address[i] = bAddress[i]
-	}
+	copy(b20Address[0:20], bAddress[0:20])
 	return b20Address
 }
 
@@ -69,9 +67,7 @@ func EthAddressToBCAddress(address [20]byte) common.BCAddress {
 func rpcCallParams(ethAddress [20]byte) (res [32]byte, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 20; i++ {
-		keyAndSlot[i+12] = ethAddress[i]
-	}
+	copy(keyAndSlot[12:32], ethAddress[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 	// params is first index so dont need to increment
 
@@ -97,9 +93,7 @@ func rpcCallParams(ethAddress [20]byte) (res [32]byte, err error) {
 			ret = append(ret, byte(0))
 		}
 		var bRet [32]byte
-		for i := 0; i < 32; i++ {
-			bRet[i] = ret[i]
-		}
+		copy(bRet[0:32], ret[0:32])
 		return bRet, nil
 	}
 	var empty [32]byte
@@ -109,9 +103,7 @@ func rpcCallParams(ethAddress [20]byte) (res [32]byte, err error) {
 func rpcCallNodeID(ethAddress [20]byte) (res [32]byte, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 20; i++ {
-		keyAndSlot[i+12] = ethAddress[i]
-	}
+	copy(keyAndSlot[12:32], ethAddress[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
@@ -137,9 +129,7 @@ func rpcCallNodeID(ethAddress [20]byte) (res [32]byte, err error) {
 			ret = append(ret, byte(0))
 		}
 		var bRet [32]byte
-		for i := 0; i < 32; i++ {
-			bRet[i] = ret[i]
-		}
+		copy(bRet[0:32], ret[0:32])
 		return bRet, nil
 	}
 	var empty [32]byte
@@ -149,9 +139,7 @@ func rpcCallNodeID(ethAddress [20]byte) (res [32]byte, err error) {
 func rpcCallStake(ethAddress [20]byte) (res uint64, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 20; i++ {
-		keyAndSlot[i+12] = ethAddress[i]
-	}
+	copy(keyAndSlot[12:32], ethAddress[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
 	storagePosition[31] += byte(2) // stake
@@ -177,9 +165,7 @@ func rpcCallStake(ethAddress [20]byte) (res uint64, err error) {
 func rpcCallGetRemainingStorage(ethAddress [20]byte) (res uint64, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 20; i++ {
-		keyAndSlot[i+12] = ethAddress[i]
-	}
+	copy(keyAndSlot[12:32], ethAddress[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
 	storagePosition[31] += byte(5) // remainingStorage
