@@ -3,7 +3,6 @@ package client_utils
 import (
 	"fmt"
 	"math/big"
-	"strconv"
 	"strings"
 
 	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
@@ -14,8 +13,6 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types" //NewTransaction
-	ethcrypto "github.com/ethereum/go-ethereum/crypto"
-	ethparams "github.com/ethereum/go-ethereum/params"
 )
 
 type RegisterUsernameParams struct {
@@ -93,24 +90,7 @@ func RegisterUsername(params *RegisterUsernameParams) (txid string, err error) {
 		dataFormatted)
 
 	// sign tx
-	point, err_point := ethcrypto.ToECDSA(params.Wallet.PrivateKey[:])
-	if err_point != nil {
-		return "", err_point
-	}
-	bigHeight := new(big.Int)
-	baseHeight, err_res := strconv.ParseUint(strings.Replace(height, "0x", "", 1), 16, 64)
-	if err_res != nil {
-		return "", err_res
-	}
-	bigHeight.SetUint64(baseHeight)
-	var signer types.Signer
-	if archonAbi.RpcUrl() == "http://127.0.0.1:7545" || archonAbi.ChainIs() == "Ganorge" {
-		signer = types.NewEIP155Signer(big.NewInt(g_chainID))
-	} else {
-		// gorli
-		signer = types.MakeSigner(ethparams.GoerliChainConfig, bigHeight)
-	}
-	signedTx, err_signedTx := types.SignTx(tx, signer, point)
+	signedTx, err_signedTx := params.Wallet.SignTx(tx)
 	if err_signedTx != nil {
 		return "", err_signedTx
 	}
