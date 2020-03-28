@@ -97,9 +97,7 @@ func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [6
 func getPublickeyFromContract(username [32]byte, xOrY string) (pubkeyXOrY [32]byte, err error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 32; i++ {
-		keyAndSlot[i] = username[i]
-	}
+	copy(keyAndSlot[0:32], username[0:32])
 	keyAndSlot[63] = byte(4) // username2UserProfile
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
 	var idx byte = 0
@@ -131,9 +129,7 @@ func getPublickeyFromContract(username [32]byte, xOrY string) (pubkeyXOrY [32]by
 			ret = append(ret, []byte(r)...)
 		}
 		var bRet [32]byte
-		for i := 0; i < 32; i++ {
-			bRet[i] = ret[i]
-		}
+		copy(bRet[0:32], ret[0:32])
 		return bRet, nil
 	}
 	var empty [32]byte

@@ -15,9 +15,7 @@ import (
 func GetNodeID2Address(nodeID [32]byte) ([20]byte, error) {
 	// format storage query
 	var keyAndSlot [64]byte
-	for i := 0; i < 32; i++ {
-		keyAndSlot[i] = nodeID[i]
-	}
+	copy(keyAndSlot[0:32], nodeID[0:32])
 	keyAndSlot[63] = byte(6) // nodeID2Address
 
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
@@ -47,9 +45,7 @@ func GetNodeID2Address(nodeID [32]byte) ([20]byte, error) {
 			ret = append(ret, []byte(r)...)
 		}
 		var bRet [20]byte
-		for i := 0; i < 20; i++ {
-			bRet[i] = ret[i]
-		}
+		copy(bRet[0:20], ret[0:20])
 		return bRet, nil
 	}
 	var empty [20]byte

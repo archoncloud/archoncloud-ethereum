@@ -12,9 +12,7 @@ import (
 // utility function for sp to list its earnings
 func GetEarnings(ethAddress [20]byte) (big.Int, error) {
 	var keyAndSlot [64]byte
-	for i := 0; i < 20; i++ {
-		keyAndSlot[i+12] = ethAddress[i]
-	}
+	copy(keyAndSlot[12:32], ethAddress[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
 	storagePosition[31] += byte(3) // 3 earnings
