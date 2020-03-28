@@ -38,12 +38,12 @@ type EthereumKeyset struct {
 }
 
 var g_chainID int64 = archonAbi.ChainID()
-var g_scryptN int = 8192
 
 // Costfactor, CPU/memory cost parameter (must be power of 2)
-var g_scryptP int = 1
+var g_scryptN int = 8192
 
 // Parallelization parameter
+var g_scryptP int = 1
 
 func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, err error) {
 	dat, err := ioutil.ReadFile(keystoreFilepath)
