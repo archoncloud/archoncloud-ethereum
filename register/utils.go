@@ -4,15 +4,13 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/archoncloud/archoncloud-go/common"
-
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
 )
 
-func CheckIfAddressIsRegistered(address common.BCAddress) (bool, error) {
+func CheckIfAddressIsRegistered(address string) (bool, error) {
 	var bAddress []byte
 	sAddress := string(address)
 	for i := 0; i < len(address); i += 2 {
@@ -44,7 +42,7 @@ func CheckIfAddressIsRegistered_byteAddress(address [20]byte) (res bool, err err
 	}
 }
 
-func CheckIfInGoodStanding(address common.BCAddress) (bool, error) {
+func CheckIfInGoodStanding(address string) (bool, error) {
 	var bAddress []byte
 	sAddress := string(address)
 	for i := 0; i < len(address); i += 2 {

@@ -14,7 +14,6 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/register"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 
-	"github.com/archoncloud/archoncloud-go/common"
 	. "github.com/archoncloud/blockchainAPI/registered_sp"
 )
 
@@ -33,7 +32,7 @@ func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error) {
 		empty := new(RegisteredSp)
 		return empty, err_result
 	}
-	ret.Address = EthAddressToBCAddress(ethAddress)
+	ret.Address = EthAddressToString(ethAddress)
 	return ret, nil
 }
 
@@ -44,7 +43,7 @@ type getRegisteredSpRpcResult struct {
 	RemainingStorage uint64
 }
 
-func BCAddressToEthAddress(address common.BCAddress) [20]byte {
+func StringToEthAddress(address string) [20]byte {
 	var bAddress []byte
 	sAddress := string(address)
 	for i := 0; i < len(address); i += 2 {
@@ -56,12 +55,12 @@ func BCAddressToEthAddress(address common.BCAddress) [20]byte {
 	return b20Address
 }
 
-func EthAddressToBCAddress(address [20]byte) common.BCAddress {
+func EthAddressToString(address [20]byte) string {
 	var bAddress []byte
 	bAddress = make([]byte, 20)
 	copy(bAddress[0:len(address)], address[0:len(address)])
 	hexAddress := hexutil.Encode(bAddress)
-	ret := common.BCAddress(hexAddress)
+	ret := hexAddress
 	return ret
 }
 
