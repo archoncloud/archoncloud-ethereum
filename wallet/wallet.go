@@ -18,6 +18,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types" //NewTransaction
 	"github.com/ethereum/go-ethereum/crypto"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
+	ethparams "github.com/ethereum/go-ethereum/params"
 
 	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
 
@@ -89,7 +90,7 @@ func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, 
 	return ethereumKeyset, nil
 }
 
-func (e *EthereumKeyset) SignTx(tx types.Transaction) (types.Transaction, error) {
+func (e *EthereumKeyset) SignTx(tx types.Transaction, height string) (types.Transaction, error) {
 	point, err_point := ethcrypto.ToECDSA(e.privateKey[:])
 	if err_point != nil {
 		return tx, err_point

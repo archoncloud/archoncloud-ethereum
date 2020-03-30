@@ -351,7 +351,7 @@ func RegisterSP(params SPParams) (txid string, err error) {
 		gasPrice,
 		dataFormatted)
 	// sign tx
-	signedTx, err_signedTx := params.Wallet.SignTx(tx)
+	signedTx, err_signedTx := params.Wallet.SignTx(tx, height)
 	if err_signedTx != nil {
 		return "", err_signedTx
 	}
@@ -420,7 +420,7 @@ func UnregisterSP(params SPParams) (ret string, err error) {
 		gasPrice,
 		dataFormatted)
 	// sign tx
-	signedTx, err_signedTx := params.Wallet.SignTx(tx)
+	signedTx, err_signedTx := params.Wallet.SignTx(tx, height)
 	if err_signedTx != nil {
 		return "", err_signedTx
 	}
