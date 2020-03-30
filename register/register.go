@@ -35,6 +35,22 @@ type SPParams struct {
 	NodeID string
 }
 
+func (s *SPParams) ToEncodingParams() *encodings.SPParams {
+	e := new(encodings.SPParams)
+	e.Wallet = s.Wallet
+	e.SLALevel = s.SLALevel
+	e.PledgedStorage = s.PledgedStorage
+	e.Bandwidth = s.Bandwidth
+	e.CountryCode = s.CountryCode
+	e.MinAskPrice = s.MinAskPrice
+
+	e.Stake = s.Stake
+	e.HardwareProof = s.HardwareProof
+	e.NodeID = s.NodeID
+	return e
+}
+
+
 func RegisterSP(params SPParams) (txid string, err error) {
 	compressed, c_err := encodings.EncodeParams(*params.ToEncodingParams())
 	if c_err != nil {
