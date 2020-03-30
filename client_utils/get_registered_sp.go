@@ -10,6 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
 
+	"github.com/archoncloud/archoncloud-ethereum/encodings"
 	"github.com/archoncloud/archoncloud-ethereum/register"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 
@@ -275,14 +276,14 @@ func getRegisteredSpRpcCalls(ethAddress [20]byte) (res *getRegisteredSpRpcResult
 func rpcResultToRegisteredSp(rpcResult getRegisteredSpRpcResult) (sp *RegisteredSp,
 	err error) {
 	var wg sync.WaitGroup
-	spParamsMessage := make(chan register.SPParams, 1)
+	spParamsMessage := make(chan encodings.SPParams, 1)
 	nodeIDMessage := make(chan string, 1)
 	wg.Add(2)
 	// calls to go routine
 	// 1.
 	go func(params [32]byte, wg *sync.WaitGroup) {
 		defer wg.Done()
-		res := register.DecodeParams(params) // register.SPParams
+		res := encodings.DecodeParams(params) // encodings.SPParams
 		spParamsMessage <- *res
 	}(rpcResult.Params, &wg)
 	// 2.
