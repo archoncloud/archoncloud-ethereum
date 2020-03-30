@@ -108,11 +108,11 @@ func (e *EthereumKeyset) SignTx(tx types.Transaction, height string) (types.Tran
 		// gorli
 		signer = types.MakeSigner(ethparams.GoerliChainConfig, bigHeight)
 	}
-	signedTx, err_signedTx := types.SignTx(tx, signer, point)
+	signedTx, err_signedTx := types.SignTx(&tx, signer, point)
 	if err_signedTx != nil {
 		return tx, err_signedTx
 	}
-	return signedTx, nil
+	return *signedTx, nil
 }
 
 func GenerateAndSaveEthereumWallet(keystoreFilepath, password string) error {
