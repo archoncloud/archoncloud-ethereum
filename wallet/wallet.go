@@ -12,6 +12,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -25,7 +26,14 @@ import (
 	"github.com/pborman/uuid"
 )
 
-var Filenames = cache.Filenames
+type SafeFilename struct {
+	sync.RWMutex
+}
+
+var Filenames = struct {
+	sync.RWMutex
+	M map[string]*SafeFilename
+}{M: make(map[string]*SafeFilename)}
 
 type encryptedKeyJSONV3 struct {
 	Address string              `json:"address"`
@@ -132,7 +140,7 @@ func GenerateAndSaveEthereumWallet(keystoreFilepath, password string) error {
 	}
 	Filenames.Lock()
 	if Filenames.M[safeKeystoreFilepath] == nil {
-		Filenames.M[safeKeystoreFilepath] = new(cache.SafeFilename)
+		Filenames.M[safeKeystoreFilepath] = new(SafeFilename)
 	}
 	ptr := Filenames.M[safeKeystoreFilepath]
 	Filenames.Unlock()
@@ -164,7 +172,7 @@ func GenerateAndSaveEthereumWalletFromPrivateKey(privateKey, keystoreFilepath, p
 	}
 	Filenames.Lock()
 	if Filenames.M[safeKeystoreFilepath] == nil {
-		Filenames.M[safeKeystoreFilepath] = new(cache.SafeFilename)
+		Filenames.M[safeKeystoreFilepath] = new(SafeFilename)
 	}
 	ptr := Filenames.M[safeKeystoreFilepath]
 	Filenames.Unlock()
@@ -214,7 +222,7 @@ func newKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore.Key {
 func overwriteproofFilename(filepath string) (string, error) {
 	Filenames.Lock()
 	if Filenames.M[filepath] == nil {
-		Filenames.M[filepath] = new(cache.SafeFilename)
+		Filenames.M[filepath] = new(SafeFilename)
 	}
 	ptr := Filenames.M[filepath]
 	Filenames.Unlock()
