@@ -13,8 +13,7 @@ import (
 	"github.com/archoncloud/archoncloud-ethereum/encodings"
 	"github.com/archoncloud/archoncloud-ethereum/register"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
-
-	. "github.com/archoncloud/blockchainAPI/registered_sp"
+	. "github.com/archoncloud/archoncloud-go/blockchainAPI/registered_sp"
 )
 
 // An sp participating in archon network makes available to archon clients
@@ -32,7 +31,7 @@ func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error) {
 		empty := new(RegisteredSp)
 		return empty, err_result
 	}
-	ret.Address = EthAddressToString(ethAddress)
+	ret.Address = EthAddressToBCAddress(ethAddress)
 	return ret, nil
 }
 
@@ -43,7 +42,7 @@ type getRegisteredSpRpcResult struct {
 	RemainingStorage uint64
 }
 
-func StringToEthAddress(address string) [20]byte {
+func BCAddressToEthAddress(address string) [20]byte {
 	var bAddress []byte
 	sAddress := string(address)
 	for i := 0; i < len(address); i += 2 {
@@ -55,7 +54,7 @@ func StringToEthAddress(address string) [20]byte {
 	return b20Address
 }
 
-func EthAddressToString(address [20]byte) string {
+func EthAddressToBCAddress(address [20]byte) string {
 	var bAddress []byte
 	bAddress = make([]byte, 20)
 	copy(bAddress[0:len(address)], address[0:len(address)])
