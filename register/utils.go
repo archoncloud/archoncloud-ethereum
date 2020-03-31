@@ -4,11 +4,27 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/archoncloud/archoncloud-ethereum/encodings"
 	"github.com/archoncloud/archoncloud-ethereum/rpc_utils"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
 )
+
+func (s *SPParams) ToEncodingParams() *encodings.SPParams {
+	e := new(encodings.SPParams)
+	e.Wallet = s.Wallet
+	e.SLALevel = s.SLALevel
+	e.PledgedStorage = s.PledgedStorage
+	e.Bandwidth = s.Bandwidth
+	e.CountryCode = s.CountryCode
+	e.MinAskPrice = s.MinAskPrice
+
+	e.Stake = s.Stake
+	e.HardwareProof = s.HardwareProof
+	e.NodeID = s.NodeID
+	return e
+}
 
 func CheckIfAddressIsRegistered(address string) (bool, error) {
 	var bAddress []byte
@@ -24,7 +40,7 @@ func CheckIfAddressIsRegistered(address string) (bool, error) {
 
 func CheckIfAddressIsRegistered_byteAddress(address [20]byte) (res bool, err error) {
 	var keyAndSlot [64]byte
-	copy(keyAndslot[12:32], address[0:20])
+	copy(keyAndSlot[12:32], address[0:20])
 	keyAndSlot[63] = byte(3) // spAddress2SPProfile
 
 	storagePosition := ethcrypto.Keccak256(keyAndSlot[:])
