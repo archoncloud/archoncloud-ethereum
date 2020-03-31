@@ -18,7 +18,7 @@ func SetRpcUrl(r string) {
 	rpcUrl.Url = r
 }
 
-func Rpc() string {
+func Rpc() *UrlPtr {
 	return rpcUrl
 }
 
