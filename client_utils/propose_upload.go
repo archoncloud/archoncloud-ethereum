@@ -105,14 +105,14 @@ func ProposeUpload(params *UploadParams) (txid string, err error) {
 	}
 	var bContractAddress [20]byte
 	copy(bContractAddress[0:20], contractAddress[0:20])
-	gasPrice, gp_err := rpc_utils.EstimateGas(params.Address,
+	gasPrice, gp_err := rpc_utils.EstimateGas(params.Wallet.Address,
 		bContractAddress,
 		amount,
 		dataFormatted)
 	if gp_err != nil {
 		return "", gp_err
 	}
-	accountHasEnoughEthers, balance, totalCost, err := rpc_utils.CheckTxCostAgainstBalance(params.UploadPmt, gasLimit, params.Address)
+	accountHasEnoughEthers, balance, totalCost, err := rpc_utils.CheckTxCostAgainstBalance(params.UploadPmt, gasLimit, params.Wallet.Address)
 	if err != nil {
 		return "", err
 	}
