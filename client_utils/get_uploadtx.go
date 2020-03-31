@@ -314,12 +314,6 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 	bigValue := new(big.Int)
 	bigValue.SetUint64(dataValue)
 
-	var chainId byte
-	if archonAbi.ChainIs() == "Ganorge" {
-		chainId = byte(1) // byte(5)
-	} else if archonAbi.ChainIs() == "Gorli" {
-		chainId = byte(5)
-	}
 	hw := sha3.NewLegacyKeccak256()
 	input := strings.Replace(data.Input, "0x", "", 1)
 	var bInput []byte
@@ -334,7 +328,7 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 		bbTo,
 		bigValue,
 		bInput,
-		chainId, uint(0), uint(0)})
+		byte(g_chainID), uint(0), uint(0)})
 	var h common.Hash
 	hw.Sum(h[:0])
 	var bH []byte
