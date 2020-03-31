@@ -49,7 +49,7 @@ func GetBlockHeight() (ret string, err error) {
 func GetBlockHash(height string) (string, error) {
 
 	var reqBytes = []byte(`{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params": ["` + height + `", false],"id":1}`)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
+	req, err_req := http.NewRequest("POST", g_ethRpc.Url, bytes.NewBuffer(reqBytes))
 	if err_req != nil {
 		return "", err_req
 	}
@@ -78,7 +78,7 @@ func GetBlockHash(height string) (string, error) {
 func GetGasLimit(height string) (res uint64, err error) {
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\": [\"" + height + "\",false],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
+	req, err_req := http.NewRequest("POST", g_ethRpc.Url, bytes.NewBuffer(reqBytes))
 	if err_req != nil {
 		return uint64(0), err_req
 	}

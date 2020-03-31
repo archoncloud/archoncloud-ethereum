@@ -44,7 +44,7 @@ type TxReceiptResponse struct {
 func GetTxReceipt(txid string) (TxReceipt, error) {
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\": [\"" + txid + "\"],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
+	req, err_req := http.NewRequest("POST", g_ethRpc.Url, bytes.NewBuffer(reqBytes))
 	if err_req != nil {
 		return *new(TxReceipt), fmt.Errorf("error GetTxReceipt, network error 1")
 	}

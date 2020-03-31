@@ -110,7 +110,7 @@ func (e *EthereumKeyset) SignTx(tx *types.Transaction, height string) (*types.Tr
 	}
 	bigHeight.SetUint64(baseHeight)
 	var signer types.Signer
-	if archonAbi.RpcUrl() == "http://127.0.0.1:7545" || archonAbi.ChainIs() == "Ganorge" {
+	if archonAbi.Rpc().Url == "http://127.0.0.1:7545" || archonAbi.ChainIs() == "Ganorge" {
 		signer = types.NewEIP155Signer(big.NewInt(g_chainID))
 	} else {
 		// gorli

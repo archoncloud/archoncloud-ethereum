@@ -4,7 +4,7 @@ import (
 	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
 )
 
-var g_ethRpcUrl string = archonAbi.RpcUrl()
+var g_ethRpc string = archonAbi.Rpc()
 
 type Response struct {
 	Result string `json:"result"`

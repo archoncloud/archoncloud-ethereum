@@ -17,9 +17,6 @@ import (
 	"github.com/pariz/gountries"
 )
 
-var g_ethRpcUrl string = archonAbi.RpcUrl()
-var g_chainID int64 = archonAbi.ChainID() //1 //18                                                                // 3 for ropsten, 18 for ganache. don't need to set for gorli
-
 type SPParams struct {
 	Wallet         wallet.EthereumKeyset
 	SLALevel       int

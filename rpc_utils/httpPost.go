@@ -9,7 +9,7 @@ import (
 )
 
 func HttpPostWResponse(reqBytes []byte) (Response, error) {
-	req, err := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
+	req, err := http.NewRequest("POST", g_ethRpc.Url, bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return *new(Response), err
 	}

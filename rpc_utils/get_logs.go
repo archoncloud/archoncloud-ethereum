@@ -27,7 +27,7 @@ func GetLogs(topics []string, fromBlock, toBlock string) (TxLogs, error) {
 	sTopics += "]"
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getLogs\",\"params\":[{\"address\": \"" + hexContractAddress() + "\", \"fromBlock\": \"" + fromBlock + "\", \"toBlock\": \"" + toBlock + "\", \"topics\":" + sTopics + "}],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", g_ethRpcUrl, bytes.NewBuffer(reqBytes))
+	req, err_req := http.NewRequest("POST", g_ethRpc.Url, bytes.NewBuffer(reqBytes))
 	if err_req != nil {
 		return *new(TxLogs), fmt.Errorf("error GetLogs, network error 1")
 	}

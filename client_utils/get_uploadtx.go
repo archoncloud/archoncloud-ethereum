@@ -176,7 +176,7 @@ func checkUploadRpcCalls(txHash [32]byte) (res GetTxByHashResult, err error) {
 	hexTxHash := hexutil.Encode(bTxHash)
 	var reqString string = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\": [\"" + hexTxHash + "\"],\"id\":1}"
 	var reqBytes = []byte(reqString)
-	req, err_req := http.NewRequest("POST", archonAbi.RpcUrl(), bytes.NewBuffer(reqBytes))
+	req, err_req := http.NewRequest("POST", archonAbi.Rpc().Url, bytes.NewBuffer(reqBytes))
 	type Response struct {
 		Result GetTxByHashResult `json:"result"`
 	}
