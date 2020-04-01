@@ -23,7 +23,7 @@ Documentation IN PROGRESS.
 
 ### Overview
 
-This module serves as an api interface for applications participating with the Archon Decentralized Cloud (ADC) to interact with the Archon Ethereum Smart Contract.
+This module serves as an api interface for applications interacting with the Archon Decentralized Cloud (ADC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract.
 
 
 --------------------------------------------------------------------
