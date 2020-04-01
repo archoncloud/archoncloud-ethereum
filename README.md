@@ -72,8 +72,8 @@ To participate in ADC as a storage provider, S makes this function call to the A
 
 `func UnregisterSP(params SPParams) (ret string, err error)`
 
-A storage provider can unregister with ADC by calling this function. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads. The storage provider's profile remains with the SC including value of earnings and remaining stake. The storage provider can withdrawal this token from the SC by calling ArchonSPWithdrawal method on the SC. (wrapper coming soon)
-
+A storage provider can unregister with ADC by calling this function. Unregisterig deletes from the ADC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads.
+ 
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
 When an upload u from uploader U is made to storage provider S in ADC, the S obtains from the blockchain the upload transaction associated with u using txHash collated with u. The S compares this returned data with the upload u to ensure that the upload matches the parameters and payment made to the SC. The S polls the blockchain with this txid to be sure this transaction is confirmed before storing this upload in fulfillment of the Service Level Agreement.
