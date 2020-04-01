@@ -88,6 +88,8 @@ A courtesy that an S provides to the ADC, is that it serves as a proxy to the AD
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
+A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking overlay has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network overlay. As far as retrieving storage provider profile data is concerned, the flow loods like nodeID -> ethaddress -> registeredSp (Profile).
+
 --------------------------------------------------------------------
 
 #### for the Uploader
