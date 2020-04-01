@@ -109,7 +109,7 @@ An uploader calls this function with appropriate parameters as a step in the upl
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
-Given an upload u from uploader U, a downloader who downloads u want to validate the integrity of u. The downloader validates the cryptographic signature on u using the public key of U. This public key is obtained by calling this function.
+Given an upload u from uploader U into ADC under it's namespace "username", a downloader who downloads u want to validate it's integrity. The downloader validates the cryptographic signature on u using the public key of U. This public key is obtained by calling this function.
 
 
 --------------------------------------------------------------------
@@ -118,12 +118,17 @@ Given an upload u from uploader U, a downloader who downloads u want to validate
 
 `func GetBalance(ethAddress [20]byte) (big.Int, error)`
 
+All Ethereum Addresses have a non-negative integer balance in wei.
+
 
 `func GetEarnings(ethAddress [20]byte) (big.Int, error)`
+
+The players in ADC who acrue earnings are the storage providers. Any entity with access to the SC can view this public information.
 
 
 `func GetTxLogs(txid string) (TxLogs, error)`
 
+Many Ethereum Smart Contract functions emit logs. This function is useful to access logs corresponding to a given transaction id.
 
 --------------------------------------------------------------------
 
