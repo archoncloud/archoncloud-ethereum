@@ -154,5 +154,7 @@ The ABI (application binary interface) along with the Archon Ethereum Smart Cont
 
 ### Encodings
 
+Like the ABI file above, the `encodings` folder contains assets that are necessary to this module, but are not intended to be used directly by the developer. Many of the API's exposed by this repository require various encodings/decodings behind the scenes. 
+
 --------------------------------------------------------------------
 
