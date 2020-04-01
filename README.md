@@ -72,7 +72,7 @@ To participate in ADC as a storage provider, S makes this function call to the A
 
 `func UnregisterSP(params SPParams) (ret string, err error)`
 
-A storage provider can unregister with ADC by calling this function. Unregisterig deletes from the ADC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads.
+A storage provider can unregister with ADC by calling this function. Unregistering deletes from the ADC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads.
  
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
@@ -84,6 +84,7 @@ A subroutine of the previous function call, is getting the username from the con
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
+A courtesy that an S provides to the ADC, is that it serves as a proxy to the ADC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network overlay. The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network overlay. The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
@@ -143,7 +144,7 @@ A subroutine of the previous function call, is getting the username from the con
 
 ### ABI
 
-The ABI (application binary interface) along with the Archon Ethereum Smart Contract address are kept in the `abi/abi.go` file along with other minor utilities. For the most part, this file has no API's that would be useful to the developerand should be left alone. The ADC protocol relies on the Archon Ethereum Smart Contract as a control to various parts of the protocol. Said differently, each player in the ADC protocol acts in response to the evolving state of the Archon Ethereum Smart Contract in conjunction with other events. By design, it is not advantageous in the ADC protocol for an entity to manipulate its interface with the SC, or the SC itself (changing address in this file). The design effectively excises such entities from the protocol. "So don't bother".
+The ABI (application binary interface) along with the Archon Ethereum Smart Contract address are kept in the `abi/abi.go` file along with other minor utilities. For the most part, this file has no API's that would be useful to the developer and should be left alone. The ADC protocol relies on the Archon Ethereum Smart Contract as a control to various parts of the protocol. Said differently, each player in the ADC protocol acts in response to the evolving state of the Archon Ethereum Smart Contract in conjunction with other events. By design, it is not advantageous in the ADC protocol for an entity to manipulate its interface with the SC, or the SC itself (changing address in this file). The design effectively excises such entities from the protocol. "So don't bother".
 
 --------------------------------------------------------------------
 
