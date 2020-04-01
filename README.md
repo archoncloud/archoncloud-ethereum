@@ -30,9 +30,11 @@ This module serves as an api interface for applications interacting with the Arc
 
 ### High-Level protocol description
 
-For this simple protocol description, we define the players in the Archon Decentralized Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their conent available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
+This is a very high-level description. Many details are glossed over in order to keep this brief. For a more detailed description, see the Archon White Paper /TODO LINK/ or read the source code from our official repositories.
 
-To bootstrap this protocol, we start with the S. Any storage provider S must be registerd with the Archon Ethereum Smart Contract as storage providers. This registrations includes providing information about their storage capabilities, marketplace ask, routing information, as well as staking Ethereum token. An uploader U must also be registered with the SC. This registration includes establishing a namespace, and publishing the public key corresponding to their pseudo-identity.
+For this simple protocol description, we define the players in the Archon Decentralized Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their content available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
+
+To bootstrap this protocol, we start with the S. Any storage provider S must be registered with the Archon Ethereum Smart Contract as storage providers. This registrations includes providing information about their storage capabilities, marketplace ask, routing information, as well as staking Ethereum token. An uploader U must also be registered with the SC. This registration includes establishing a namespace, and publishing the public key corresponding to their pseudo-identity.
 
 We follow an upload u from U to its final target, the downloader D.
 
