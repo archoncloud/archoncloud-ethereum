@@ -52,9 +52,9 @@ To keep this description very simple, we abstract away the details of erasure-en
 
 The U prepares u using some encoding and cryptographically signs u to get {u,sig(u), {other-metadata}}. Either now, or in the past, U has accumulated a subset of storage providers S_ = {S_1,S_2,...,S_n} (a subset of all storage providers in ADC) from one or a few S. Locally, U runs the ADC marketplace to determine the best S from S_ to accomodate u.
 
-U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u and S that was determined by the marketplace and sends {u, sig(u), {other-metadata}}. S caches this upload and listens to SC for pu_tx to be confirmed by the blockchain. The proposeUpload transaction includes a payment to S for storing u, documents metadata of u including sig(u), and also validates the result of the marketplace. Assuming pu_tx is confirmed, S announces to the networking overlay of ADC that it is storing {u, ...} and stores {u,...} for the period paid for by U in pu_tx. 
+U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u and S that was determined by the marketplace and sends {u, sig(u), {other-metadata}}. S caches this upload and listens to SC for pu_tx to be confirmed by the blockchain. The proposeUpload transaction includes a payment to S for storing u, documents metadata of u including sig(u), and also validates the result of the marketplace. Assuming pu_tx is confirmed, S announces to the networking [overlay](https://github.com/archoncloud/archon-dht) of ADC that it is storing {u, ...} and stores {u,...} for the period paid for by U in pu_tx. 
 
-The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the ADC download url of u. Storage provider S' queries its networking overlay for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
+The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the ADC download url of u. Storage provider S' queries its networking [overlay](https://github.com/archoncloud/archon-dht) for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
 
 We will see below which API's each of the players call in order to participate in this protocol. Please keep in mind, this description glossed over some very important implementation details in order to be brief. For a more detailed protocol description, refer to the Archon Whitepaper /TODO NEED URL/, or inspect the source of the official repositories.
 
@@ -65,8 +65,6 @@ We will see below which API's each of the players call in order to participate i
 --------------------------------------------------------------------
 
 #### for the SP (storage provider)
-
-###### functions
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
@@ -86,17 +84,18 @@ A subroutine of the previous function call, is getting the username from the con
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
-A courtesy that an S provides to the ADC, is that it serves as a proxy to the ADC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network overlay. The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network overlay. The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
+A courtesy that an S provides to the ADC, is that it serves as a proxy to the ADC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network [overlay](https://github.com/archoncloud/archon-dht). The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network [overlay](https://github.com/archoncloud/archon-dht). The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
-A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking overlay has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network overlay. As far as retrieving storage provider profile data from the SC is concerned, the flow looks like nodeID -> ethaddress -> registeredSp (Profile).
+A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking [overlay](https://github.com/archoncloud/archon-dht) has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network [overlay](https://github.com/archoncloud/archon-dht). As far as retrieving storage provider profile data from the SC is concerned, the flow looks like nodeID -> ethaddress -> registeredSp (Profile).
 
 --------------------------------------------------------------------
 
 #### for the Uploader
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
+
 A necessary condition of an upload in ADC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
