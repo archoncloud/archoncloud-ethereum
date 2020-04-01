@@ -101,13 +101,15 @@ A necessary condition of an upload in ADC being considered valid, is that it's u
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
-An uploader calls this function with appropriate parameters as a step in the upload process. This function constructs, signs, and broadcasts to the blockchain an upload transaction call on the SC. This transaction includes a list of storage providers who are to receive the upload (shards), as well as payment. The list of storage providers and payment is settled in the local marketplace instance handled in other modules, [for marketplace see github.com/archoncloud/archoncloud-go](https://github.com/archoncloud/archoncloud-go)
+An uploader calls this function with appropriate parameters as a step in the upload process. This function constructs, signs, and broadcasts to the blockchain an upload transaction call on the SC. This transaction includes a list of storage providers who are to receive the upload (shards), payment, and file integrity data such as container signature. The list of storage providers and payment is settled in the local marketplace instance handled in other modules, [for marketplace see github.com/archoncloud/archoncloud-go](https://github.com/archoncloud/archoncloud-go)
 
 --------------------------------------------------------------------
 
 #### for the downloader
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
+
+Given an upload u from uploader U, a downloader who downloads u want to validate the integrity of u. The downloader validates the cryptographic signature on u using the public key of U. This public key is obtained by calling this function.
 
 
 --------------------------------------------------------------------
