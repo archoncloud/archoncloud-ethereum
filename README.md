@@ -21,8 +21,8 @@ Documentation IN PROGRESS.
    - for All Entities
 
      - Basic Getters
-
-     - Wallet
+     
+  - Wallet
 
   - ABI
 
@@ -113,8 +113,19 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetTxLogs(txid string) (TxLogs, error)`
 
+--------------------------------------------------------------------
 
-#####  Wallet
+####  Wallet
+
+`func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, err error)`
+
+`func (e *EthereumKeyset) SignTx(tx *types.Transaction, height string) (*types.Transaction, error)`
+
+`func GenerateAndSaveEthereumWallet(keystoreFilepath, password string) error`
+
+`func GenerateAndSaveEthereumWalletFromPrivateKey(privateKey, keystoreFilepath, password string) error`
+
+`func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
 --------------------------------------------------------------------
 
