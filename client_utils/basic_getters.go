@@ -58,9 +58,10 @@ func GetTxLogs(txid string) (TxLogs, error) {
 
 // An uploader needs to first have their username registered with the sc
 // before they can upload to the archon cloud.
-// A use of this is that when a downloader needs to validate their download,
-// they retrieve from the contract the publicKey associated with the username
-// that namespaces the download.
+// The primary use of this function is that the sp calls this during
+// GetUploadTx so that the sp will store the corresponding upload in the
+// registered namespace. this registered namespace prevents the uploader from
+// cheating and overwriting files in other namespaces
 func GetUsernameFromContract(address [20]byte) (username [32]byte, err error) {
 	// format storage query
 	var keyAndSlot [64]byte

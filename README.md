@@ -23,7 +23,7 @@ Documentation IN PROGRESS.
 
 ### Overview
 
-This module serves as an api interface for applications interacting with the Archon Decentralized Cloud (ADC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract. The ADC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The ADC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in other blockchain layers.
+This module serves as an api interface for applications interacting with the Archon Decentralized Cloud (ADC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract. The ADC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The ADC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
 
 
 --------------------------------------------------------------------
@@ -56,12 +56,64 @@ We will see below which API's each of the players call in order to participate i
 
 #### for the SP (storage provider)
 
+// DESCRIPTIONS COMING SOON
+
+`func RegisterSP(params SPParams) (txid string, err error)`
+
+
+`func UnregisterSP(params SPParams) (ret string, err error)`
+
+
+`func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
+
+
+`func GetUsernameFromContract(address [20]byte) (username [32]byte, err error)`
+
+
+`func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
+
+
+`func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
+
 --------------------------------------------------------------------
 
 #### for the Uploader
+
+
+`func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
+
+`func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
 --------------------------------------------------------------------
 
 #### for the downloader
 
+`func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
+
 --------------------------------------------------------------------
+
+#### for all entities
+
+
+`func GetBalance(ethAddress [20]byte) (big.Int, error)`
+
+
+`func GetEarnings(ethAddress [20]byte) (big.Int, error)`
+
+
+`func GetTxLogs(txid string) (TxLogs, error)`
+
+--------------------------------------------------------------------
+
+### Wallet
+
+--------------------------------------------------------------------
+
+### Abi
+
+--------------------------------------------------------------------
+
+### Encodings
+
+--------------------------------------------------------------------
+
