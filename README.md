@@ -96,18 +96,16 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 
 #### for the Uploader
 
-###### functions
-
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
+A necessary condition of an upload in ADC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
+An uploader calls this function with appropriate parameters as a step in the upload process. This function constructs, signs, and broadcasts to the blockchain an upload transaction call on the SC. This transaction includes a list of storage providers who are to receive the upload (shards), as well as payment. The list of storage providers and payment is settled in the local marketplace instance handled in other modules, [see github.com/archoncloud/archoncloud-go](https://github.com/archoncloud/archoncloud-go)
 
 --------------------------------------------------------------------
 
 #### for the downloader
-
-###### functions
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
@@ -115,8 +113,6 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 --------------------------------------------------------------------
 
 #### for all entities
-
-###### functions
 
 `func GetBalance(ethAddress [20]byte) (big.Int, error)`
 
@@ -131,17 +127,16 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 
 ####  Wallet
 
-###### functions
-
 `func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, err error)`
 
 `func (e *EthereumKeyset) SignTx(tx *types.Transaction, height string) (*types.Transaction, error)`
+
+`func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
 `func GenerateAndSaveEthereumWallet(keystoreFilepath, password string) error`
 
 `func GenerateAndSaveEthereumWalletFromPrivateKey(privateKey, keystoreFilepath, password string) error`
 
-`func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
 
 --------------------------------------------------------------------
