@@ -12,11 +12,11 @@ Documentation IN PROGRESS.
 
  - APIs 
 
- -- for the SP (storage provider)
+   - for the SP (storage provider)
 
- -- for The Uploader
+   - for The Uploader
 
- -- for The Downloader
+   - for The Downloader
 
 --------------------------------------------------------------------
 
