@@ -67,6 +67,7 @@ We will see below which API's each of the players call in order to participate i
 #### for the SP (storage provider)
 
 // DESCRIPTIONS COMING SOON
+###### functions
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
@@ -85,25 +86,35 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
+###### types and structs
+
 --------------------------------------------------------------------
 
 #### for the Uploader
 
+###### functions
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
+###### types and structs
+
 --------------------------------------------------------------------
 
 #### for the downloader
 
+###### functions
+
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
+
+###### types and structs
 
 --------------------------------------------------------------------
 
 #### for all entities
 
+###### functions
 
 `func GetBalance(ethAddress [20]byte) (big.Int, error)`
 
@@ -113,9 +124,13 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetTxLogs(txid string) (TxLogs, error)`
 
+###### types and structs
+
 --------------------------------------------------------------------
 
 ####  Wallet
+
+###### functions
 
 `func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, err error)`
 
@@ -127,9 +142,13 @@ We will see below which API's each of the players call in order to participate i
 
 `func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
+###### types and structs
+
 --------------------------------------------------------------------
 
-### Abi
+### ABI
+
+The ABI (application binary interface) along with the Archon Ethereum Smart Contract address are kept in the `abi/abi.go` file along with other minor utilities. For the most part, this file has no API's that would be useful to the developerand should be left alone. The ADC protocol relies on the Archon Ethereum Smart Contract as a control to various parts of the protocol. Said differently, each player in the ADC protocol acts in response to the evolving state of the Archon Ethereum Smart Contract in conjunction with other events. By design, it is not advantageous in the ADC protocol for an entity to manipulate its interface with the SC, or the SC itself (changing address in this file). The design effectively excises such entities from the protocol. "So don't bother".
 
 --------------------------------------------------------------------
 
