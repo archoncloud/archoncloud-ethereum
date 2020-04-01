@@ -18,6 +18,16 @@ Documentation IN PROGRESS.
 
    - for The Downloader
 
+   - for All Entities
+
+     - Basic Getters
+
+     - Wallet
+
+  - ABI
+
+  - Encodings
+
 --------------------------------------------------------------------
 
 
@@ -103,9 +113,8 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetTxLogs(txid string) (TxLogs, error)`
 
---------------------------------------------------------------------
 
-### Wallet
+#####  Wallet
 
 --------------------------------------------------------------------
 
