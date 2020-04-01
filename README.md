@@ -80,6 +80,7 @@ When an upload u from uploader U is made to storage provider S in ADC, the S obt
 
 `func GetUsernameFromContract(address [20]byte) (username [32]byte, err error)`
 
+A subroutine of the previous function call, is getting the username from the contract that is registered to the uploader. This is a security precaution to prevent the uploader from maliciously overwriting files in other uploader's namespaces. The storage provider stores the upload u in the namespace returned from this function call.
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
