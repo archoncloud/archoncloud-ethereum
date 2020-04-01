@@ -76,6 +76,7 @@ A storage provider can unregister with ADC by calling this function. Once unregi
 
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
+When an upload u from uploader U is made to storage provider S in ADC, the S obtains from the blockchain the upload transaction associated with u using txHash collated with u. The S compares this returned data with the upload u to ensure that the upload matches the parameters and payment made to the SC. The S polls the blockchain with this txid to be sure this transaction is confirmed before storing this upload in fulfillment of the Service Level Agreement.
 
 `func GetUsernameFromContract(address [20]byte) (username [32]byte, err error)`
 
