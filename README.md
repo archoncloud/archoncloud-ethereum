@@ -26,6 +26,8 @@ NOTE: This software is in development and subject to change. Not for production 
 
   - Encodings
 
+  - RPC Utils
+
 --------------------------------------------------------------------
 
 
@@ -42,7 +44,7 @@ This is a very high-level description. Many details are glossed over in order to
 
 For this simple protocol description, we define the players in the Archon Decentralized Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their content available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
 
-To bootstrap this protocol, we start with the S. Any storage provider S must be registered with the Archon Ethereum Smart Contract as storage providers. This registrations includes providing information about their storage capabilities, marketplace ask, routing information, as well as staking Ethereum token. An uploader U must also be registered with the SC. This registration includes establishing a namespace, and publishing the public key corresponding to their pseudo-identity.
+To bootstrap this protocol, we start with the S. Any storage provider S must be registered with the Archon Ethereum Smart Contract as storage providers. This registration includes providing information about their storage capabilities, marketplace ask, routing information, as well as staking Ethereum token. An uploader U must also be registered with the SC. This registration includes establishing a namespace, and publishing the public key corresponding to their pseudo-identity.
 
 We follow an upload u from U to its final target, the downloader D.
 
@@ -88,7 +90,7 @@ A courtesy that an S provides to the ADC, is that it serves as a proxy to the AD
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
-A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking overlay has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network overlay. As far as retrieving storage provider profile data from the SC is concerned, the flow loods like nodeID -> ethaddress -> registeredSp (Profile).
+A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking overlay has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network overlay. As far as retrieving storage provider profile data from the SC is concerned, the flow looks like nodeID -> ethaddress -> registeredSp (Profile).
 
 --------------------------------------------------------------------
 
@@ -156,3 +158,8 @@ Like the ABI file above, the `encodings` folder contains assets that are necessa
 
 --------------------------------------------------------------------
 
+### RPC Utils
+
+Again, the `rpc_utils` folder contains functions that are not intended to be of immediate use to the developers using this repository. Rather the functions provided by the `rpc_utils` folder are called as subroutines of the showcased API's provided by this repository.
+
+--------------------------------------------------------------------
