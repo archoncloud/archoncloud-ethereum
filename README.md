@@ -2,8 +2,6 @@
 
 NOTE: This software is in development and subject to change. Not for production use!
 
-Documentation IN PROGRESS.
-
 ### Contents:
 
  - Overview
@@ -66,14 +64,15 @@ We will see below which API's each of the players call in order to participate i
 
 #### for the SP (storage provider)
 
-// DESCRIPTIONS COMING SOON
 ###### functions
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
+To participate in ADC as a storage provider, S makes this function call to the Archon Ethereum Smart Contract with suitable "SPParams". 
 
 `func UnregisterSP(params SPParams) (ret string, err error)`
 
+A storage provider can unregister with ADC by calling this function. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads. The storage provider's profile remains with the SC including value of earnings and remaining stake. The storage provider can withdrawal this token from the SC by calling ArchonSPWithdrawal method on the SC. (wrapper coming soon)
 
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
@@ -86,8 +85,6 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
-###### types and structs
-
 --------------------------------------------------------------------
 
 #### for the Uploader
@@ -98,7 +95,6 @@ We will see below which API's each of the players call in order to participate i
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
-###### types and structs
 
 --------------------------------------------------------------------
 
@@ -108,7 +104,6 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
-###### types and structs
 
 --------------------------------------------------------------------
 
@@ -124,7 +119,6 @@ We will see below which API's each of the players call in order to participate i
 
 `func GetTxLogs(txid string) (TxLogs, error)`
 
-###### types and structs
 
 --------------------------------------------------------------------
 
@@ -142,7 +136,6 @@ We will see below which API's each of the players call in order to participate i
 
 `func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
-###### types and structs
 
 --------------------------------------------------------------------
 
