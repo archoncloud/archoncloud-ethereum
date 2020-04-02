@@ -1,50 +1,48 @@
 # archoncloud-ethereum
 
-NOTE: This software is in development and subject to change. Not for production use!
-
 ### Contents:
 
- - Overview
+  1. Overview
 
- - High-Level protocol description
+  2. High-Level protocol description
 
- - Initialization
+  3. Initialization
 
- - APIs 
+  4. APIs 
 
-   - for the SP (storage provider)
+    - for the SP (storage provider)
 
-   - for The Uploader
+    - for The Uploader
 
-   - for The Downloader
+    - for The Downloader
 
-   - for All Entities
+    - for All Entities
 
-     - Basic Getters
+      - Basic Getters
      
-  - Wallet
+  5. Wallet
 
-  - ABI
+  6. ABI
 
-  - Encodings
+  7. Encodings
 
-  - RPC Utils
-
---------------------------------------------------------------------
-
-
-### Overview
-
-This module serves as an api interface for applications interacting with the Archon Decentralized Cloud (ADC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract. The ADC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The ADC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
-
+  8. RPC Utils
 
 --------------------------------------------------------------------
 
-### High-Level protocol description
+
+### 1. Overview
+
+This module serves as an api interface for applications interacting with the Archon Cloud (AC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract. The AC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The AC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
+
+
+--------------------------------------------------------------------
+
+### 2. High-Level protocol description
 
 This is a very high-level description. Many details are glossed over in order to keep this brief. For a more detailed description, see the Archon White Paper /TODO LINK/ or read the source code from our official repositories.
 
-For this simple protocol description, we define the players in the Archon Decentralized Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their content available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
+For this simple protocol description, we define the players in the Archon Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their content available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
 
 To bootstrap this protocol, we start with the S. Any storage provider S must be registered with the Archon Ethereum Smart Contract as storage providers. This registration includes providing information about their storage capabilities, marketplace ask, routing information, as well as staking Ethereum token. An uploader U must also be registered with the SC. This registration includes establishing a namespace, and publishing the public key corresponding to their pseudo-identity.
 
@@ -52,18 +50,18 @@ We follow an upload u from U to its final target, the downloader D.
 
 To keep this description very simple, we abstract away the details of erasure-encoding, etc and just follow u from U to S to D.
 
-The U prepares u using some encoding and cryptographically signs u to get {u,sig(u), {other-metadata}}. Either now, or in the past, U has accumulated a subset of storage providers S_ = {S_1,S_2,...,S_n} (a subset of all storage providers in ADC) from one or a few S. Locally, U runs the ADC marketplace to determine the best S from S_ to accomodate u.
+The U prepares u using some encoding and cryptographically signs u to get {u,sig(u), {other-metadata}}. Either now, or in the past, U has accumulated a subset of storage providers S_ = {S_1,S_2,...,S_n} (a subset of all storage providers in AC) from one or a few S. Locally, U runs the AC marketplace to determine the best S from S_ to accomodate u.
 
-U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u and S that was determined by the marketplace and sends {u, sig(u), {other-metadata}}. S caches this upload and listens to SC for pu_tx to be confirmed by the blockchain. The proposeUpload transaction includes a payment to S for storing u, documents metadata of u including sig(u), and also validates the result of the marketplace. Assuming pu_tx is confirmed, S announces to the networking [overlay](https://github.com/archoncloud/archon-dht) of ADC that it is storing {u, ...} and stores {u,...} for the period paid for by U in pu_tx. 
+U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u and S that was determined by the marketplace and sends {u, sig(u), {other-metadata}}. S caches this upload and listens to SC for pu_tx to be confirmed by the blockchain. The proposeUpload transaction includes a payment to S for storing u, documents metadata of u including sig(u), and also validates the result of the marketplace. Assuming pu_tx is confirmed, S announces to the networking [overlay](https://github.com/archoncloud/archon-dht) of AC that it is storing {u, ...} and stores {u,...} for the period paid for by U in pu_tx. 
 
-The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the ADC download url of u. Storage provider S' queries its networking [overlay](https://github.com/archoncloud/archon-dht) for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
+The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the AC download url of u. Storage provider S' queries its networking [overlay](https://github.com/archoncloud/archon-dht) for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
 
 We will see below which API's each of the players call in order to participate in this protocol. Please keep in mind, this description glossed over some very important implementation details in order to be brief. For a more detailed protocol description, refer to the Archon Whitepaper /TODO NEED URL/, or inspect the source of the official repositories.
 
 
 --------------------------------------------------------------------
 
-### Initialization
+### 3. Initialization
 
 The developer must point their application at their preferred Ethereum RPC Url.
 
@@ -73,7 +71,7 @@ The developer must point their application at their preferred Ethereum RPC Url.
 
 --------------------------------------------------------------------
 
-### APIs 
+### 4. APIs 
 
 --------------------------------------------------------------------
 
@@ -81,15 +79,15 @@ The developer must point their application at their preferred Ethereum RPC Url.
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
-To participate in ADC as a storage provider, S makes this function call to the Archon Ethereum Smart Contract with suitable "SPParams". 
+To participate in AC as a storage provider, S makes this function call to the Archon Ethereum Smart Contract with suitable "SPParams". 
 
 `func UnregisterSP(params SPParams) (ret string, err error)`
 
-A storage provider can unregister with ADC by calling this function. Unregistering deletes from the ADC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in ADC or earn from such uploads.
+A storage provider can unregister with AC by calling this function. Unregistering deletes from the AC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in AC or earn from such uploads.
  
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
-When an upload u from uploader U is made to storage provider S in ADC, the S obtains from the blockchain the upload transaction associated with u using txHash collated with u. The S compares this returned data with the upload u to ensure that the upload matches the parameters and payment made to the SC. The S polls the blockchain with this txid to be sure this transaction is confirmed before storing this upload in fulfillment of the Service Level Agreement.
+When an upload u from uploader U is made to storage provider S in AC, the S obtains from the blockchain the upload transaction associated with u using txHash collated with u. The S compares this returned data with the upload u to ensure that the upload matches the parameters and payment made to the SC. The S polls the blockchain with this txid to be sure this transaction is confirmed before storing this upload in fulfillment of the Service Level Agreement.
 
 `func GetUsernameFromContract(address [20]byte) (username [32]byte, err error)`
 
@@ -97,7 +95,7 @@ A subroutine of the previous function call, is getting the username from the con
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
-A courtesy that an S provides to the ADC, is that it serves as a proxy to the ADC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network [overlay](https://github.com/archoncloud/archon-dht). The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network [overlay](https://github.com/archoncloud/archon-dht). The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
+A courtesy that an S provides to the AC, is that it serves as a proxy to the AC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network [overlay](https://github.com/archoncloud/archon-dht). The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network [overlay](https://github.com/archoncloud/archon-dht). The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
@@ -109,7 +107,7 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
 
-A necessary condition of an upload in ADC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
+A necessary condition of an upload in AC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
@@ -121,7 +119,7 @@ An uploader calls this function with appropriate parameters as a step in the upl
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
-Given an upload u from uploader U into ADC under it's namespace "username", a downloader who downloads u want to validate it's integrity. The downloader validates the cryptographic signature on u using the public key of U. This public key is obtained by calling this function.
+Given an upload u from uploader U into AC under it's namespace "username", a downloader who downloads u want to validate it's integrity. The downloader validates the cryptographic signature on u using the public key of U. This public key is obtained by calling this function.
 
 
 --------------------------------------------------------------------
@@ -135,7 +133,7 @@ All Ethereum Addresses have a non-negative integer balance in wei.
 
 `func GetEarnings(ethAddress [20]byte) (big.Int, error)`
 
-The players in ADC who acrue earnings are the storage providers. Any entity with access to the SC can view this public information.
+The players in AC who acrue earnings are the storage providers. Any entity with access to the SC can view this public information.
 
 
 `func GetTxLogs(txid string) (TxLogs, error)`
@@ -144,7 +142,7 @@ Many Ethereum Smart Contract functions emit logs. This function is useful to acc
 
 --------------------------------------------------------------------
 
-####  Wallet
+####  5. Wallet
 
 `func GetEthKeySet(keystoreFilepath, password string) (ethKeySet EthereumKeyset, err error)`
 
@@ -152,7 +150,7 @@ Given keystoreFilepath and password, open an encrypted V3 keystore file to obtai
 
 `func (e *EthereumKeyset) SignTx(tx *types.Transaction, height string) (*types.Transaction, error)`
 
-This SignTx method is used in the repository as a subroutine of the API's that construct, sign, and broadcast transactions to the Ethereum Blockchain. The developer does not need to call this directly in ADC.
+This SignTx method is used in the repository as a subroutine of the API's that construct, sign, and broadcast transactions to the Ethereum Blockchain. The developer does not need to call this directly in AC.
 
 `func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
@@ -168,19 +166,19 @@ Given privateKey, generate encrypted V3 keystore with chosen password and store 
 
 --------------------------------------------------------------------
 
-### ABI
+### 6. ABI
 
-The ABI (application binary interface) along with the Archon Ethereum Smart Contract address are kept in the `abi/abi.go` file along with other minor utilities. For the most part, this file has no API's that would be useful to the developer and should be left alone. The ADC protocol relies on the Archon Ethereum Smart Contract as a control to various parts of the protocol. Said differently, each player in the ADC protocol acts in response to the evolving state of the Archon Ethereum Smart Contract in conjunction with other events. By design, it is not advantageous in the ADC protocol for an entity to manipulate its interface with the SC, or the SC itself (changing address in this file). The design effectively excises such entities from the protocol. "So don't bother".
+The ABI (application binary interface) along with the Archon Ethereum Smart Contract address are kept in the `abi/abi.go` file along with other minor utilities. For the most part, this file has no API's that would be useful to the developer and should be left alone. The AC protocol relies on the Archon Ethereum Smart Contract as a control to various parts of the protocol. Said differently, each player in the AC protocol acts in response to the evolving state of the Archon Ethereum Smart Contract in conjunction with other events. By design, it is not advantageous in the AC protocol for an entity to manipulate its interface with the SC, or the SC itself (changing address in this file). The design effectively excises such entities from the protocol. "So don't bother".
 
 --------------------------------------------------------------------
 
-### Encodings
+### 7. Encodings
 
 Like the ABI file above, the `encodings` folder contains assets that are necessary to this module, but are not intended to be used directly by the developer. Many of the API's exposed by this repository require various encodings/decodings behind the scenes. 
 
 --------------------------------------------------------------------
 
-### RPC Utils
+### 8. RPC Utils
 
 Again, the `rpc_utils` folder contains functions that are not intended to be of immediate use to the developers using this repository. Rather the functions provided by the `rpc_utils` folder are called as subroutines of the showcased API's provided by this repository.
 
