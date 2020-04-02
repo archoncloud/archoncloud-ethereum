@@ -8,6 +8,8 @@ NOTE: This software is in development and subject to change. Not for production 
 
  - High-Level protocol description
 
+ - Initialization
+
  - APIs 
 
    - for the SP (storage provider)
@@ -57,6 +59,17 @@ U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u 
 The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the ADC download url of u. Storage provider S' queries its networking [overlay](https://github.com/archoncloud/archon-dht) for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
 
 We will see below which API's each of the players call in order to participate in this protocol. Please keep in mind, this description glossed over some very important implementation details in order to be brief. For a more detailed protocol description, refer to the Archon Whitepaper /TODO NEED URL/, or inspect the source of the official repositories.
+
+
+--------------------------------------------------------------------
+
+### Initialization
+
+The developer must point their application at their preferred Ethereum RPC Url.
+
+```
+	abi.SetRpcUrl("<rpc-url>")
+```
 
 --------------------------------------------------------------------
 
