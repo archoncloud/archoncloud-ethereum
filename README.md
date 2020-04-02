@@ -93,7 +93,7 @@ A subroutine of the previous function call, is getting the username from the con
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
-A courtesy that an S provides to the AC, is that it serves as a proxy to the AC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network [overlay](https://github.com/archoncloud/archon-dht). The way the S forms and maintains this cache is by collection storage provider data of these known nodes that is stored both in the SC and in the network [overlay](https://github.com/archoncloud/archon-dht). The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
+A courtesy that an S provides to the AC, is that it serves as a proxy to the AC to "light-clients". Uploaders and Downloaders can be light-clients. A way an S acts as a proxy is that S serves a cache of storage provider profiles corresponding to a census of it's known nodes in the network [overlay](https://github.com/archoncloud/archon-dht). The way the S forms and maintains this cache is by collecting storage provider data of these known nodes that is stored both in the SC and in the network [overlay](https://github.com/archoncloud/archon-dht). The data that is stored in the SC is retrieved using this "GetRegisteredSP" function.
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
