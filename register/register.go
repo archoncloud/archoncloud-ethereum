@@ -33,7 +33,7 @@ type SPParams struct {
 }
 
 func RegisterSP(params SPParams) (txid string, err error) {
-	compressed, c_err := encodings.EncodeParams(*params.ToEncodingParams())
+	encodedParams, c_err := encodings.EncodeParams(*params.ToEncodingParams())
 	if c_err != nil {
 		return "", c_err
 	}
@@ -67,7 +67,7 @@ func RegisterSP(params SPParams) (txid string, err error) {
 	var b32NodeID [32]byte
 	copy(b32NodeID[:], bNodeID[2:])
 
-	args := encodings.ArchonSCArgs{Params: compressed,
+	args := encodings.ArchonSCArgs{Params: encodedParams,
 		NodeID:        b32NodeID,
 		HardwareProof: params.HardwareProof}
 	var methodName string = "registerSP"
