@@ -17,8 +17,6 @@
    - for The Downloader
 
    - for All Entities
-
-    - Basic Getters
      
   5. Wallet
 
