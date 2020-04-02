@@ -10,15 +10,15 @@
 
   4. APIs 
 
-    - for the SP (storage provider)
+   - for the SP (storage provider)
 
-    - for The Uploader
+   - for The Uploader
 
-    - for The Downloader
+   - for The Downloader
 
-    - for All Entities
+   - for All Entities
 
-      - Basic Getters
+    - Basic Getters
      
   5. Wallet
 
