@@ -38,7 +38,7 @@ This module serves as an api interface for applications interacting with the Arc
 
 ### 2. High-Level protocol description
 
-This is a very high-level description. Many details are glossed over in order to keep this brief. For a more detailed description, see the Archon White Paper or read the source code from our official repositories.
+This is a very high-level description. Many details are glossed over in order to keep this brief. For a more detailed description, see the Archon White Paper or read the source code from our official repositories (including this one).
 
 For this simple protocol description, we define the players in the Archon Cloud to be storage providers S, uploaders U, and downloaders D. The intent of these players are what you think they would be: the U want to make their content available, the D want to obtain the content of U, and S wants to earn cryptocurrency by acting as a conduit serving the needs of U and D.
 
@@ -54,7 +54,7 @@ U concurrently makes a proposeUpload transaction pu_tx to SC with metadata of u 
 
 The downloader D knows of u from some other channel. Perhaps U advertised on, say, reddit that U uploaded u. D contacts some storage provider S' asking for the AC download url of u. Storage provider S' queries its networking [overlay](https://github.com/archoncloud/archon-dht) for the url(s) of any S holding u and returns these values to D. Downloader D downloads {u, sig(u), {other-metadata}} from S and retrieves the public key of U from the SC. D validates sig(u) with this public key and accepts u in the ideal case.
 
-We will see below which API's each of the players call in order to participate in this protocol. Please keep in mind, this description glossed over some very important implementation details in order to be brief. For a more detailed protocol description, refer to the Archon Whitepaper, or inspect the source of the official repositories.
+We will see below which API's each of the players call in order to participate in this protocol. Please keep in mind, this description glossed over some very important implementation details in order to be brief. For a more detailed protocol description, refer to the Archon Whitepaper, or inspect the source of the official repositories (including this one).
 
 
 --------------------------------------------------------------------
