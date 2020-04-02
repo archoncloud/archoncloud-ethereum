@@ -89,7 +89,7 @@ When an upload u from uploader U is made to storage provider S in AC, the S obta
 
 `func GetUsernameFromContract(address [20]byte) (username [32]byte, err error)`
 
-A subroutine of the previous function call, is getting the username from the contract that is registered to the uploader. This is a security precaution to prevent the uploader from maliciously overwriting files in other uploader's namespaces. The storage provider stores the upload u in the namespace returned from this function call.
+A subroutine of the previous function call, is getting the username from the contract that is registered to the uploader. This is a security precaution to prevent the uploader from maliciously overwriting files in other uploader's namespaces. The storage provider stores the upload u in the namespace returned from this function call. This does not need to be called directly by the developer.
 
 `func GetRegisteredSP(ethAddress [20]byte) (sp *RegisteredSp, err error)`
 
@@ -97,7 +97,7 @@ A courtesy that an S provides to the AC, is that it serves as a proxy to the AC 
 
 `func GetNodeID2Address(nodeID [32]byte) ([20]byte, error)`
 
-A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking [overlay](https://github.com/archoncloud/archon-dht) has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network [overlay](https://github.com/archoncloud/archon-dht). As far as retrieving storage provider profile data from the SC is concerned, the flow looks like nodeID -> ethaddress -> registeredSp (Profile).
+A subroutine of the caching process mentioned in the description of "GetRegisteredSP" is satisfied using this function. Each node in the networking [overlay](https://github.com/archoncloud/archon-dht) has a unique nodeID. So for each node known by S, the nodeID acts as a key or handle to the storage provider profile data stored in both the SC and the network [overlay](https://github.com/archoncloud/archon-dht). As far as retrieving storage provider profile data from the SC is concerned, the flow looks like nodeID -> ethaddress -> registeredSp (Profile). This does not need to be called directly by the developer.
 
 --------------------------------------------------------------------
 
