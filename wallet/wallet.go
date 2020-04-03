@@ -182,6 +182,7 @@ func GenerateAndSaveEthereumWalletFromPrivateKey(privateKey, keystoreFilepath, p
 	return nil
 }
 
+//CAUTION! Exposing your private key may lead to a loss of Ethereum token! Do not use this function unless you are familiar with best security practices with respect to public-key cryptography.
 func (e *EthereumKeyset) ExportPrivateKey() (string, error) {
 	var bPrivateKey []byte
 	for i := 0; i < len(e.privateKey); i++ {
@@ -189,6 +190,15 @@ func (e *EthereumKeyset) ExportPrivateKey() (string, error) {
 	}
 	ret := hexutil.Encode(bPrivateKey)
 	return ret, nil
+}
+
+//CAUTION! Exposing your private key may lead to a loss of Ethereum token! Do not use this function unless you are familiar with best security practices with respect to public-key cryptography.
+func (e *EthereumKeyset) ExportPrivateKeyBytes() ([]byte, error) {
+	var bPrivateKey []byte
+	for i := 0; i < len(e.privateKey); i++ {
+		bPrivateKey = append(bPrivateKey, e.privateKey[i])
+	}
+	return bPrivateKey
 }
 
 func generateWallet(rand io.Reader) (*keystore.Key, error) {
