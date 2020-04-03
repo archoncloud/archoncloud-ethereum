@@ -6,6 +6,11 @@ import (
 	archonAbi "github.com/archoncloud/archoncloud-ethereum/abi"
 )
 
+func SetRpcUrl(r []string) error {
+	rpcInitializer := archonAbi.SetRpcUrl(r)
+	return SanitizeRpcUrls(rpcInitializer)
+}
+
 func SanitizeRpcUrls(rpcPtr *archonAbi.UrlPtr) error {
 	var updatedUrls []string
 	for i := 0; i < len(rpcPtr.Urls); i++ {
