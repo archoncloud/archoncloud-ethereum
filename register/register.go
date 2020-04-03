@@ -94,7 +94,7 @@ func RegisterSP(params SPParams) (txid string, err error) {
 		return "", err
 	}
 	if !accountHasEnoughEthers {
-		return "", fmt.Errorf("error RegisterSP: totalCost of tx is ", totalCost, " but account balance is ", balance)
+		return "", fmt.Errorf("error RegisterSP: totalCost of tx is ", totalCost.Text(10), " but account balance is ", balance.Text(10))
 	}
 	tx := types.NewTransaction(nonce,
 		bContractAddress,
