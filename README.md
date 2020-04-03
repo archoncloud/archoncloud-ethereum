@@ -64,7 +64,10 @@ We will see below which API's each of the players call in order to participate i
 The developer must point their application at their preferred Ethereum RPC Url.
 
 ```
-	rpc_utils.SetRpcUrl([]string{"<rpc-url1>", "<rpc-url2>", "<rpc-url3>"})
+	err := rpc_utils.SetRpcUrl([]string{"<rpc-url1>", "<rpc-url2>", "<rpc-url3>"})
+	if err != nil {
+		// This means that no entered url is valid 
+	}
 ```
 
 --------------------------------------------------------------------
