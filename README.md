@@ -31,7 +31,7 @@
 
 ### 1. Overview
 
-This module serves as an api interface for applications interacting with the Archon Cloud (AC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract. The AC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The AC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
+This module serves as an api interface for applications interacting with the Archon Cloud (AC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract (SC). The AC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The AC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
 
 
 --------------------------------------------------------------------
