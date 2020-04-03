@@ -66,7 +66,7 @@ The developer must point their application at their preferred Ethereum RPC Url.
 ```
 	err := rpc_utils.SetRpcUrl([]string{"<rpc-url1>", "<rpc-url2>", "<rpc-url3>"})
 	if err != nil {
-		// This means that no entered url is valid 
+		// This means that no entered url is valid as an eth rpc 
 	}
 ```
 
