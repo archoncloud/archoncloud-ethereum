@@ -9,13 +9,16 @@ func ChainID() int64 {
 }
 
 type UrlPtr struct {
-	Url string
+	Url  string
+	Urls []string
 }
 
 var rpcUrl *UrlPtr = new(UrlPtr)
 
-func SetRpcUrl(r string) {
-	rpcUrl.Url = r
+func SetRpcUrl(r []string) *UrlPtr {
+	rpcUrl.Urls = r
+	rpcUrl.Url = r[0]
+	return Rpc()
 }
 
 func Rpc() *UrlPtr {
