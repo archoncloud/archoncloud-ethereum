@@ -155,7 +155,7 @@ This SignTx method is used in the repository as a subroutine of the API's that c
 
 `func (e *EthereumKeyset) ExportPrivateKey() (string, error)`
 
-`func (e *EthereumKeyset) ExportPrivateKey() ([]byte, error)`
+`func (e *EthereumKeyset) ExportPrivateKey() []byte`
 
 CAUTION! Exposing your private key may lead to a loss of Ethereum token! Do not use this function unless you are familiar with best security practices with respect to public-key cryptography. 
 

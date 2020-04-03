@@ -193,7 +193,7 @@ func (e *EthereumKeyset) ExportPrivateKey() (string, error) {
 }
 
 //CAUTION! Exposing your private key may lead to a loss of Ethereum token! Do not use this function unless you are familiar with best security practices with respect to public-key cryptography.
-func (e *EthereumKeyset) ExportPrivateKeyBytes() ([]byte, error) {
+func (e *EthereumKeyset) ExportPrivateKeyBytes() []byte {
 	var bPrivateKey []byte
 	for i := 0; i < len(e.privateKey); i++ {
 		bPrivateKey = append(bPrivateKey, e.privateKey[i])
