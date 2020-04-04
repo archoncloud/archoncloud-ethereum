@@ -94,7 +94,7 @@ func RegisterSP(params SPParams) (txid string, err error) {
 		return "", err
 	}
 	if !accountHasEnoughEthers {
-		return "", fmt.Errorf("error RegisterSP: totalCost of tx is ", totalCost.Text(10), " but account balance is ", balance.Text(10))
+		return "", fmt.Errorf("error RegisterSP: totalCost of tx is %s but account balance is %s ", totalCost.Text(10), balance.Text(10))
 	}
 	tx := types.NewTransaction(nonce,
 		bContractAddress,
@@ -162,7 +162,7 @@ func UnregisterSP(params SPParams) (ret string, err error) {
 		return "", err
 	}
 	if !accountHasEnoughEthers {
-		return "", fmt.Errorf("error RegisterSP: totalCost of tx is ", totalCost, " but account balance is ", balance)
+		return "", fmt.Errorf("error RegisterSP: totalCost of tx is %s but account balance is %s", totalCost.Text(10), balance.Text(10))
 	}
 	tx := types.NewTransaction(nonce,
 		bContractAddress,
