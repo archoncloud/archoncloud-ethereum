@@ -17,10 +17,11 @@ func CheckTxCostAgainstBalance(amount, gasLimit uint64, address [20]byte) (accou
 	bGasLimit := new(big.Int)
 	bGasLimit.SetUint64(gasLimit)
 
-	bTotalCost := bAmount.Add(bAmount, bGasLimit)
+	bTotalCost := new(big.Int)
+	bTotalCost = bAmount.Add(bAmount, bGasLimit)
 	difference := bBalance.Sub(&bBalance, bTotalCost)
 	if difference.Sign() < 0 {
-		return false, balance, totalCost, nil
+		return false, bBalance, *bTotalCost, nil
 	}
 	return true, bBalance, *bTotalCost, nil
 }
