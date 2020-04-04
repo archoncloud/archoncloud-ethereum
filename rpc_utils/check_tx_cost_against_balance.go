@@ -27,5 +27,5 @@ func CheckTxCostAgainstBalance(amount, gasLimit uint64, address [20]byte) (accou
 	if difference.Sign() < 0 {
 		return false, *balanceCopy, *bTotalCost, nil
 	}
-	return true, bBalance, *bTotalCost, nil
+	return true, *balanceCopy, *bTotalCost, nil
 }
