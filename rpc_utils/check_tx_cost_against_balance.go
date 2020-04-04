@@ -19,9 +19,13 @@ func CheckTxCostAgainstBalance(amount, gasLimit uint64, address [20]byte) (accou
 
 	bTotalCost := new(big.Int)
 	bTotalCost = bAmount.Add(bAmount, bGasLimit)
+
+	balanceCopy := new(big.Int)
+	balanceCopy.SetString(bBalance.Text(16), 16)
+
 	difference := bBalance.Sub(&bBalance, bTotalCost)
 	if difference.Sign() < 0 {
-		return false, bBalance, *bTotalCost, nil
+		return false, balanceCopy, *bTotalCost, nil
 	}
 	return true, bBalance, *bTotalCost, nil
 }
