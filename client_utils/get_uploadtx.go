@@ -321,6 +321,10 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 		r, _ := hexutil.Decode("0x" + input[i:i+2])
 		bInput = append(bInput, []byte(r)...)
 	}
+	var chainID byte
+	if archonAbi.ChainIs() == "Gorli" {
+		chainID = byte(5)
+	} // else adapt to other chains
 	rlp.Encode(hw, []interface{}{
 		nonce,
 		bigGasPrice,
@@ -328,7 +332,7 @@ func ECRecoverFromTx(data GetTxByHashResult) (retKey [64]byte, err error) {
 		bbTo,
 		bigValue,
 		bInput,
-		byte(g_chainID), uint(0), uint(0)})
+		byte(chainID), uint(0), uint(0)})
 	var h common.Hash
 	hw.Sum(h[:0])
 	var bH []byte
