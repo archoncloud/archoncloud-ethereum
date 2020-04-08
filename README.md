@@ -82,10 +82,14 @@ The developer must point their application at their preferred Ethereum RPC Url.
 
 To participate in AC as a storage provider, S makes this function call to the Archon Ethereum Smart Contract with suitable "SPParams". 
 
+[example](https://github.com/archoncloud/archoncloud-ethereum/blob/master/examples/register_sp.md)
+
 `func UnregisterSP(params SPParams) (ret string, err error)`
 
 A storage provider can unregister with AC by calling this function. Unregistering deletes from the AC the profile of the storage provider, and pays the S the sum of its earnings and stake. Once unregistered, the SP can no longer be assigned uploads in AC or earn from such uploads.
  
+[example](https://github.com/archoncloud/archoncloud-ethereum/blob/master/examples/unregister_sp.md)
+
 `func GetUploadTx(txHash [32]byte) (uploadTx UploadTx, err error)`
 
 When an upload u from uploader U is made to storage provider S in AC, the S obtains from the blockchain the upload transaction associated with u using txHash collated with u. The S compares this returned data with the upload u to ensure that the upload matches the parameters and payment made to the SC. The S polls the blockchain with this txid to be sure this transaction is confirmed before storing this upload in fulfillment of the Service Level Agreement.
@@ -107,12 +111,15 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 #### for the Uploader
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
-
 A necessary condition of an upload in AC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
+
+[example](https://github.com/archoncloud/archoncloud-ethereum/blob/master/examples/register_username.md)
 
 `func ProposeUpload(params *UploadParams) (txid string, err error)` 
 
 An uploader calls this function with appropriate parameters as a step in the upload process. This function constructs, signs, and broadcasts to the blockchain an upload transaction call on the SC. This transaction includes a list of storage providers who are to receive the upload (shards), payment, and file integrity data such as container signature. The list of storage providers and payment is settled in the local marketplace instance handled in other modules, [for marketplace see github.com/archoncloud/archoncloud-go](https://github.com/archoncloud/archoncloud-go)
+
+[example](https://github.com/archoncloud/archoncloud-ethereum/blob/master/examples/propose_upload.md)
 
 --------------------------------------------------------------------
 
