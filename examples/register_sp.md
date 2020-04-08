@@ -1,6 +1,20 @@
 # Example: Register SP
 
 ```
+import (
+	"math/rand" 
+	// for example values 
+	
+	"github.com/archoncloud/archoncloud-ethereum/register"
+	"github.com/archoncloud/archoncloud-ethereum/wallet"
+
+	"github.com/pariz/gountries"
+
+	// ...	
+)
+
+	// ...
+
 	var keystoreFilepath string = "testingWallet.json"
 	var password string = "TestingWallet"
 	keyset, err := wallet.GetEthKeySet(keystoreFilepath, password)
