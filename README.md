@@ -2,13 +2,13 @@
 
 ### Contents:
 
-  1. [Overview](#overview)
+  1. [Overview](#1)
 
-  2. [High-Level protocol description](#high-level protocol description)
+  2. [High-Level protocol description](#2)
 
-  3. [Initialization](#initialization)
+  3. [Initialization](#3)
 
-  4. [APIs](#apis) 
+  4. [APIs](#4) 
 
    - [for the SP (storage provider)](#for the sp (storage provider))
 
@@ -18,15 +18,15 @@
 
    - [for All Entities](#for all entities)
      
-  5. [Wallet](#wallet)
+  5. [Wallet](#5)
 
-  6. [ABI](#abi)
+  6. [ABI](#6)
 
-  7. [Encodings](#encodings)
+  7. [Encodings](#7)
 
-  8. [RPC Utils](#rpc utils)
+  8. [RPC Utils](#8)
 
-  9. [Further Reading](#further reading)
+  9. [Further Reading](#9)
 
 --------------------------------------------------------------------
 
