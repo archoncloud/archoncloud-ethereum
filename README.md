@@ -26,6 +26,8 @@
 
   8. RPC Utils
 
+  9. Further Reading
+
 --------------------------------------------------------------------
 
 
@@ -193,3 +195,16 @@ Like the ABI file above, the `encodings` folder contains assets that are necessa
 Again, the `rpc_utils` folder contains functions that are not intended to be of immediate use to the developers using this repository. Rather the functions provided by the `rpc_utils` folder are called as subroutines of the showcased API's provided by this repository.
 
 --------------------------------------------------------------------
+
+### 9. Further reading 
+
+ - [archoncloud-contracts](https://github.com/archoncloud/archoncloud-contracts)
+
+ - [archoncloud-neo](https://github.com/archoncloud/archoncloud-go/blockchainAPI/neo)
+
+ - [archoncloud-go](https://github.com/archoncloud/archoncloud-go)
+
+ - [archon-dht](https://github.com/archoncloud/archoncloud-dht)
+
+--------------------------------------------------------------------
+
