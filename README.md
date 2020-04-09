@@ -2,13 +2,13 @@
 
 ### Contents:
 <!--ts-->
-  1. [Overview](#1)
+  [1. Overview](#1)
 
   2. [High-Level protocol description](#2)
 
   3. [Initialization](#3)
 
-  4. [APIs](###4.) 
+  [4. APIs](###4.) 
 
    - [for the SP (storage provider)](#sp)
 
