@@ -2,38 +2,38 @@
 
 ### Contents:
 
-  1. Overview
+  1. [Overview](#overview)
 
-  2. High-Level protocol description
+  2. [High-Level protocol description](#high-level protocol description)
 
-  3. Initialization
+  3. [Initialization](#initialization)
 
-  4. APIs 
+  4. [APIs](#apis) 
 
-   - for the SP (storage provider)
+   - [for the SP (storage provider)](#for the sp (storage provider))
 
-   - for The Uploader
+   - [for The Uploader](#for the uploader)
 
-   - for The Downloader
+   - [for The Downloader](#for the downloader)
 
-   - for All Entities
+   - [for All Entities](#for all entities)
      
-  5. Wallet
+  5. [Wallet](#wallet)
 
-  6. ABI
+  6. [ABI](#abi)
 
-  7. Encodings
+  7. [Encodings](#encodings)
 
-  8. RPC Utils
+  8. [RPC Utils](#rpc utils)
 
-  9. Further Reading
+  9. [Further Reading](#further reading)
 
 --------------------------------------------------------------------
 
 
 ### 1. Overview
 
-This module serves as an api interface for applications interacting with the Archon Cloud (AC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract (SC). The AC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The AC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers.
+This module serves as an api interface for applications interacting with the Archon Cloud (AC) either as agents of the cloud, or as beneficiaries. Specifically, this module is an api interface to interact with the Archon Ethereum Smart Contract (SC). The AC currently has smart contracts live in both the Ethereum and Neo networks that manage this protocol in analogous ways. The AC was designed to integrate smart contracts from other blockchains as needed. In this repository we focus on the api to the Archon Ethereum Smart Contract, but keep in mind the implementation is similar in Archon's other blockchain layers. This module was purpose-built for the [official archoncloud-go client](https://github.com/archoncloud/archoncloud-go), but is suitable to be used in other client implementations adhering to the Archon Protocol.
 
 
 --------------------------------------------------------------------
@@ -200,11 +200,11 @@ Again, the `rpc_utils` folder contains functions that are not intended to be of 
 
  - [archoncloud-contracts](https://github.com/archoncloud/archoncloud-contracts)
 
- - [archoncloud-neo](https://github.com/archoncloud/archoncloud-go/blockchainAPI/neo)
+ - [archoncloud-neo](https://github.com/archoncloud/archoncloud-go/tree/master/blockchainAPI/neo)
 
  - [archoncloud-go](https://github.com/archoncloud/archoncloud-go)
 
- - [archon-dht](https://github.com/archoncloud/archoncloud-dht)
+ - [archon-dht](https://github.com/archoncloud/archon-dht)
 
 --------------------------------------------------------------------
 
