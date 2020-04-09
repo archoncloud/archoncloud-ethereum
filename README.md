@@ -8,7 +8,7 @@
 
   3. [Initialization](#3)
 
-  4. [APIs](####4. APIs) 
+  4. [APIs](###4) 
 
    - [for the SP (storage provider)](#sp)
 
