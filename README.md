@@ -1,34 +1,32 @@
 # archoncloud-ethereum
 
 ### Contents:
-<!--ts-->
-  [1. Overview](#1)
+  1. Overview
 
-  2. [High-Level protocol description](#2)
+  2. High-Level protocol description
 
-  3. [Initialization](#3)
+  3. Initialization
 
-  [4. APIs](###4.) 
+  4. APIs 
 
-   - [for the SP (storage provider)](#sp)
+   - for the SP (storage provider)
 
-   - [for The Uploader](#uploader)
+   - for The Uploader
 
-   - [for The Downloader](#downloader)
+   - for The Downloader
 
-   - [for All Entities](#all)
+   - for All Entities
      
-  5. [Wallet](#5)
+  5. Wallet
 
-  6. [ABI](#6)
+  6. ABI
 
-  7. [Encodings](#7)
+  7. Encodings
 
-  8. [RPC Utils](#8)
+  8. RPC Utils
 
-  9. [Further Reading](#9)
+  9. Further Reading
 
-<!--te-->
 --------------------------------------------------------------------
 
 
@@ -79,7 +77,7 @@ The developer must point their application at their preferred Ethereum RPC Url.
 
 --------------------------------------------------------------------
 
-#### SP (storage provider)
+#### for the SP (storage provider)
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
@@ -111,7 +109,7 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 
 --------------------------------------------------------------------
 
-#### Uploader
+#### for the Uploader
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
 A necessary condition of an upload in AC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
@@ -126,7 +124,7 @@ An uploader calls this function with appropriate parameters as a step in the upl
 
 --------------------------------------------------------------------
 
-#### Downloader
+#### for the Downloader
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
@@ -135,7 +133,7 @@ Given an upload u from uploader U into AC under it's namespace "username", a dow
 
 --------------------------------------------------------------------
 
-#### All entities
+#### for all entities
 
 `func GetBalance(ethAddress [20]byte) (big.Int, error)`
 
