@@ -1,7 +1,7 @@
 # archoncloud-ethereum
 
 ### Contents:
-
+<!--ts-->
   1. [Overview](#1)
 
   2. [High-Level protocol description](#2)
@@ -10,13 +10,13 @@
 
   4. [APIs](#4) 
 
-   - [for the SP (storage provider)](#for the sp (storage provider))
+   - [for the SP (storage provider)](#sp)
 
-   - [for The Uploader](#for the uploader)
+   - [for The Uploader](#uploader)
 
-   - [for The Downloader](#for the downloader)
+   - [for The Downloader](#downloader)
 
-   - [for All Entities](#for all entities)
+   - [for All Entities](#all)
      
   5. [Wallet](#5)
 
@@ -28,6 +28,7 @@
 
   9. [Further Reading](#9)
 
+<!--te-->
 --------------------------------------------------------------------
 
 
@@ -78,7 +79,7 @@ The developer must point their application at their preferred Ethereum RPC Url.
 
 --------------------------------------------------------------------
 
-#### for the SP (storage provider)
+#### SP (storage provider)
 
 `func RegisterSP(params SPParams) (txid string, err error)`
 
@@ -110,7 +111,7 @@ A subroutine of the caching process mentioned in the description of "GetRegister
 
 --------------------------------------------------------------------
 
-#### for the Uploader
+#### Uploader
 
 `func RegisterUsername(params *RegisterUsernameParams) (txid string, err error)` 
 A necessary condition of an upload in AC being considered valid, is that it's uploader U is registered with the SC. This registration establishes in the blockchain storage the namespace and the pubic key of U.
@@ -125,7 +126,7 @@ An uploader calls this function with appropriate parameters as a step in the upl
 
 --------------------------------------------------------------------
 
-#### for the downloader
+#### Downloader
 
 `func GetPublickeyFromContract(username string, timeout time.Duration) (pubkey [64]byte, err error)`
 
@@ -134,7 +135,7 @@ Given an upload u from uploader U into AC under it's namespace "username", a dow
 
 --------------------------------------------------------------------
 
-#### for all entities
+#### All entities
 
 `func GetBalance(ethAddress [20]byte) (big.Int, error)`
 
