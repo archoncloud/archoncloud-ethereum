@@ -7,5 +7,6 @@ require (
 	github.com/ethereum/go-ethereum v1.9.12
 	github.com/pariz/gountries v0.0.0-20191029140926-233bc78cf5b5
 	github.com/pborman/uuid v0.0.0-20170112150404-1b00554d8222
+	github.com/stretchr/testify v1.4.0
 	golang.org/x/crypto v0.0.0-20200311171314-f7b00557c8c4
 )
