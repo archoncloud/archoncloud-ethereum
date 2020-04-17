@@ -14,8 +14,9 @@ type ProposeUploadParams struct {
 	CompressionType     uint8
 	ShardContainerType  uint8
 	ErasureCodeType     uint8
-	CustomField         uint8
+	AccessControlLevel  uint8
 	ContainerSignatureV byte
+	CustomField         uint8
 }
 
 func EncodeProposeUploadParams(params ProposeUploadParams) (res [32]byte, err error) {
@@ -58,11 +59,12 @@ func EncodeProposeUploadParams(params ProposeUploadParams) (res [32]byte, err er
 	ret[23] = byte(params.CompressionType)
 	ret[24] = byte(params.ShardContainerType)
 	ret[25] = byte(params.ErasureCodeType)
-	ret[26] = byte(params.CustomField)
+	ret[26] = byte(params.AccessControlLevel)
 
 	// V for containerSignature stashed here
 	ret[27] = params.ContainerSignatureV
 	//
+	ret[28] = byte(params.CustomField)
 
 	// NOTE THERE ARE MANY FREE BYTES
 
@@ -101,9 +103,10 @@ func DecodeProposeUploadParams(params [32]byte) ProposeUploadParams {
 	ret.CompressionType = uint8(params[23])
 	ret.ShardContainerType = uint8(params[24])
 	ret.ErasureCodeType = uint8(params[25])
-	ret.CustomField = uint8(params[26])
+	ret.AccessControlLevel = uint8(params[26])
 	// ContainerSignature V stashed here
 	ret.ContainerSignatureV = byte(params[27])
+	ret.CustomField = uint8(params[28])
 
 	return ret
 }

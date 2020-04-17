@@ -19,6 +19,14 @@ import (
 
 var g_chainID int64 = archonAbi.ChainID()
 
+type UploadAccessControlLevel uint8
+
+const (
+	Priv_UploaderOnly UploadAccessControlLevel = iota
+	Priv_RestrictedGroup
+	Public
+)
+
 type UploadParams struct {
 	Wallet wallet.EthereumKeyset
 
@@ -33,6 +41,7 @@ type UploadParams struct {
 	CompressionType    uint8
 	ShardContainerType uint8
 	ErasureCodeType    uint8
+	AccessControlLevel UploadAccessControlLevel
 	CustomField        uint8
 
 	ContainerSignature [ethcrypto.SignatureLength]byte
@@ -79,6 +88,7 @@ func ProposeUpload(params *UploadParams) (txid string, err error) {
 		ShardContainerType:  params.ShardContainerType,
 		ErasureCodeType:     params.ErasureCodeType,
 		ContainerSignatureV: params.ContainerSignature[64], // stashing V
+		AccessControlLevel:  uint8(params.AccessControlLevel),
 		CustomField:         params.CustomField}
 	encodedParams, ep_err := encodings.EncodeProposeUploadParams(
 		proposeUploadParams)

@@ -22,6 +22,7 @@ func TestEncodeProposeUpload(t *testing.T) {
 		compressionType := uint8(rand.Uint32())
 		shardContainerType := uint8(rand.Uint32())
 		erasureCodeType := uint8(rand.Uint32())
+		accessControlLevel := uint8(rand.Uint32())
 		customField := uint8(rand.Uint32())
 
 		p := ProposeUploadParams{
@@ -34,6 +35,7 @@ func TestEncodeProposeUpload(t *testing.T) {
 			CompressionType:    compressionType,
 			ShardContainerType: shardContainerType,
 			ErasureCodeType:    erasureCodeType,
+			AccessControlLevel: accessControlLevel,
 			CustomField:        customField}
 
 		enc, err_1 := EncodeProposeUploadParams(p)
@@ -45,5 +47,6 @@ func TestEncodeProposeUpload(t *testing.T) {
 		assert.Equal(t, serviceDuration, dec.ServiceDuration, "encode,decode mismatch: serviceDuration")
 		assert.Equal(t, uploadPmt, dec.UploadPmt, "encode,decode mismatch: uploadPmt")
 		assert.Equal(t, filesize, dec.Filesize, "encode,decode mismatch: filesize")
+		assert.Equal(t, accessControlLevel, dec.AccessControlLevel, "encode,decode mismatch: AccessControlLevel")
 	}
 }
